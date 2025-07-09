@@ -3,6 +3,7 @@ import cors from 'cors';
 import { Low } from 'lowdb';
 import { JSONFile } from 'lowdb/node';
 import authRoutes from './routes/auth.js';
+import flashcardRoutes from './routes/flashcard.js';
 
 const app = express();
 const port = 3001;
@@ -29,9 +30,10 @@ app.use('/api/auth', (req, res, next) => {
 }, authRoutes);
 
 // Testowy endpoint
-app.get('/flashcards', (req, res) => {
-  res.json(db.data.flashcards);
-});
+app.use('/flashcards', (req, resn, next) => {
+  req.db = db;
+  next();
+}, flashcardRoutes);
 
 // Obsługa błędów JSON
 app.use((err, req, res, next) => {
