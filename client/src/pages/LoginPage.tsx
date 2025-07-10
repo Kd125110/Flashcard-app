@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import '../App.css'
+
 
 const LoginPage: React.FC = () => {
   const navigate = useNavigate();
@@ -33,11 +33,11 @@ const LoginPage: React.FC = () => {
   };
 
   return (
-    <div className='container'>
-      <form className='form' onSubmit={handleLogin}>
+    <div className="flex items-center justify-center mx-auto bg-transparent">
+      <form className="bg-white p-8 rounded shadow min-w-[300px] flex flex-col gap-4" onSubmit={handleLogin}>
         <h2>Login</h2>
         <input
-          className='input'
+          className="p-2 border border-gray-300 rounded text-base"
           type="email"
           placeholder="Email"
           value={email}
@@ -45,20 +45,20 @@ const LoginPage: React.FC = () => {
           required
         />
         <input
-          className='input'
+          className="p-2 border border-gray-300 rounded text-base"
           type="password"
           placeholder="Password"
           value={password}
           onChange={e => setPassword(e.target.value)}
           required
         />
-        <button className='button' type="submit">
+        <button className="p-3 rounded border-none bg-[#007bff] text-white font-bold cursor-pointer text-base" type="submit">
           Log In
         </button>
-        <button className='button' type="button" onClick={() => navigate('/register')}>
+        <button className="p-3 rounded border-none bg-[#007bff] text-white font-bold cursor-pointer text-base" type="button" onClick={() => navigate('/register')}>
           Register
-        </button>
-        {message && <div className='message'>{message}</div>}
+        </button> 
+        {message && <div className="text-red-500 text-center">{message}</div>}
       </form>
     </div>
   );

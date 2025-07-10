@@ -1,15 +1,16 @@
 import React from 'react';
-import '../App.css'
+import '../output.css'
 import Navbar from '../components/Navbar';
 
 const DashboardPage: React.FC = () => {
  
  return(
- <div style={{ display: 'flex', height: '100vh',width: '100vw', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+ <div className="flex items-center justify-center mx-auto bg-transparent">
     <Navbar />
-    <div className='content'>
+    <div>
         <h1>Witaj w aplikacji fiszek!</h1>
         <p>Jesteś zalogowany.</p>
+        <p>Tutaj będą statystki kiedyś</p>
     </div>
  </div>
 );
