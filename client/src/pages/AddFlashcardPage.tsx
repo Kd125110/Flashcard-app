@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import Flashcard from '../components/Flashcard';
-import '../App.css';
 import Navbar from '../components/Navbar';
 
 interface FlashcardData {
@@ -45,10 +44,11 @@ const AddFlashcardPage: React.FC = () => {
       <Navbar />
       <form
         onSubmit={handleSubmit}
-        style={{ display: 'flex', flexDirection: 'column', gap: 16, width: 320 }}
+        className='bg-white p-8 rounded shadow min-w-[300px] flex flex-col gap-4'
       >
         <h2>Dodaj nową fiszkę</h2>
         <input
+          className="p-2 border border-gray-300 rounded text-base"
           type="text"
           placeholder="Słowo"
           value={question}
@@ -56,6 +56,7 @@ const AddFlashcardPage: React.FC = () => {
           required
         />
         <input
+          className="p-2 border border-gray-300 rounded text-base"
           type="text"
           placeholder="Tłumaczenie"
           value={answer}
@@ -63,18 +64,19 @@ const AddFlashcardPage: React.FC = () => {
           required
         />
         <input
+          className="p-2 border border-gray-300 rounded text-base"
           type="text"
           placeholder="Kategoria"
           value={category}
           onChange={e => setCategory(e.target.value)}
           required
         />
-        <button type="submit" className="btn1">
+        <button type="submit" className="p-3 rounded border-none bg-[#007bff] text-white font-bold cursor-pointer text-base">
           Dodaj fiszkę</button>
         {message && <p>{message}</p>}
       </form>
 
-      <div className="flashcard-preview">
+      <div className="flex-1 flex justify-end">
         {flashcards.length > 0 && (
           <Flashcard
             question={flashcards[flashcards.length - 1].question}

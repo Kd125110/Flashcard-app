@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import '../App.css'
+import '../output.css'
 
 const RegisterPage: React.FC = () => {
   const navigate = useNavigate();
@@ -34,11 +34,11 @@ const RegisterPage: React.FC = () => {
   };
 
   return (
-    <div className='container'>
-      <form className='form' onSubmit={handleLogin}>
+    <div className="flex items-center justify-center mx-auto bg-transparent">
+      <form className="bg-white p-8 rounded shadow min-w-[300px] flex flex-col gap-4" onSubmit={handleLogin}>
         <h2>Register</h2>
         <input
-          className='input'
+          className="p-2 border border-gray-300 rounded text-base"
           type="email"
           placeholder="Email"
           value={email}
@@ -46,17 +46,17 @@ const RegisterPage: React.FC = () => {
           required
         />
         <input
-          className='input'
+          className="p-2 border border-gray-300 rounded text-base"
           type="password"
           placeholder="Password"
           value={password}
           onChange={e => setPassword(e.target.value)}
           required
         />
-        <button className='button' type="submit">
+        <button className="p-3 rounded border-none bg-[#007bff] text-white font-bold cursor-pointer text-base" type="submit">
           Register
         </button>
-        {message && <div className='message'>{message}</div>}
+        {message && <div className="text-red-500 text-center">{message}</div>}
       </form>
     </div>
   );
