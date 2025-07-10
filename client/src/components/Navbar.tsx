@@ -19,9 +19,9 @@ const handleAddFlashcard = () => {
 
 return(
     <div className="navbar">
-        <button onClick={handleDashboard} className='btn'>Flashcard App</button>
-        <button onClick={handleAddFlashcard}className='add-flashcard-btn'>Dodaj fiszkę</button>
-        <button onClick={handleLogout} className='logout-btn'>Wyloguj</button>
+        <button onClick={handleDashboard} className="bg-transparent text-white border-none text-[1.2rem] cursor-pointer p-0 mr-auto">Flashcard App</button>
+        <button onClick={handleAddFlashcard}className="ml-[-256px] mr-auto bg-transparent text-white border-none text-[1.1rem] cursor-pointer hover:text-gray-500">Dodaj fiszkę</button>
+        <button onClick={handleLogout} className="ml-auto bg-transparent text-white border-none text-[1.1rem] cursor-pointer z-[1100] hover:underline hover:text-gray-500">Wyloguj</button>
     </div>
 );
 };
