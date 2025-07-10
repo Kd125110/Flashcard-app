@@ -6,12 +6,16 @@ interface FlashcardData {
   question: string;
   answer: string;
   category: string;
+  sourceLang: string;
+  targetLang: string;
 }
 
 const AddFlashcardPage: React.FC = () => {
   const [question, setQuestion] = useState('');
   const [answer, setAnswer] = useState('');
   const [category, setCategory] = useState('');
+  const [sourceLang, setSourceLang] = useState('');
+  const [targetLang, setTargetLang] = useState('');
   const [message, setMessage] = useState('');
   const [flashcards, setFlashcards] = useState<FlashcardData[]>([]);
 
@@ -22,15 +26,17 @@ const AddFlashcardPage: React.FC = () => {
       const response = await fetch('http://localhost:3001/flashcards/add', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ question, answer, category }),
+        body: JSON.stringify({ question, answer, category, sourceLang, targetLang }),
       });
 
       if (response.ok) {
         setMessage('Dodano fiszkę!');
-        setFlashcards(prev => [...prev, { question, answer, category }]);
+        setFlashcards(prev => [...prev, { question, answer, category, sourceLang, targetLang }]);
         setQuestion('');
         setAnswer('');
         setCategory('');
+        setSourceLang('');
+        setTargetLang('');
       } else {
         setMessage('Błąd podczas dodawania fiszki.');
       }
@@ -71,8 +77,29 @@ const AddFlashcardPage: React.FC = () => {
           onChange={e => setCategory(e.target.value)}
           required
         />
+       <select
+          className="p-2 border border-gray-300 rounded text-base"
+          value={sourceLang}
+          onChange={e => setSourceLang(e.target.value)}
+          required>
+          <option value="">Wybierz język źródłowy</option>
+          <option value="Polish">Polski</option>
+          <option value="English">Angielski</option>
+          <option value="German">Niemiecki</option>
+       </select>
+       <select
+          className="p-2 border border-gray-300 rounded text-base"
+          value={targetLang}
+          onChange={e => setTargetLang(e.target.value)}
+          required>
+          <option value="">Wybierz język docelowy</option>
+          <option value="Polish">Polski</option>
+          <option value="English">Angielski</option>
+          <option value="German">Niemiecki</option>
+       </select>
         <button type="submit" className="p-3 rounded border-none bg-[#007bff] text-white font-bold cursor-pointer text-base">
-          Dodaj fiszkę</button>
+          Dodaj fiszkę
+        </button>
         {message && <p>{message}</p>}
       </form>
 
@@ -82,6 +109,9 @@ const AddFlashcardPage: React.FC = () => {
             question={flashcards[flashcards.length - 1].question}
             answer={flashcards[flashcards.length - 1].answer}
             category={flashcards[flashcards.length - 1].category}
+            sourceLang={flashcards[flashcards.length - 1].sourceLang}
+            targetLang={flashcards[flashcards.length - 1].targetLang}
+            flipped
           />
         )}
       </div>
