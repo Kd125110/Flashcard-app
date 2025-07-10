@@ -29,7 +29,7 @@ app.use('/api/auth', (req, res, next) => {
   next();
 }, authRoutes);
 
-// Testowy endpoint
+// endpoint
 app.use('/flashcards', (req, resn, next) => {
   req.db = db;
   next();
