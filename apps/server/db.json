@@ -1,0 +1,73 @@
+{
+  "users": [
+    {
+      "email": "test@example.com",
+      "password": "123456"
+    },
+    {
+      "id": 2,
+      "email": "test2@example.com",
+      "password": "1234567"
+    },
+    {
+      "id": 3,
+      "email": "test3@example.com",
+      "password": "123456"
+    },
+    {
+      "id": 4,
+      "email": "test5@example.com",
+      "password": "123456"
+    }
+  ],
+  "flashcards": [
+    {
+      "id": "1752129338693",
+      "question": "Kot",
+      "answer": "Cat",
+      "category": "Zwierzęta",
+      "sourceLang": "Polish",
+      "targetLang": "English"
+    },
+    {
+      "id": "1752140116030",
+      "question": "Pies",
+      "answer": "Dog",
+      "category": "Zwierzęta",
+      "sourceLang": "Polish",
+      "targetLang": "English"
+    },
+    {
+      "id": "1752140352442",
+      "question": "Koń",
+      "answer": "Horse",
+      "category": "Zwierzęta",
+      "sourceLang": "Polish",
+      "targetLang": "English"
+    },
+    {
+      "id": "1752142957036",
+      "question": "12",
+      "answer": "12",
+      "category": "12",
+      "sourceLang": "Polish",
+      "targetLang": "English"
+    },
+    {
+      "id": "1752146344297",
+      "question": "Krab",
+      "answer": "Crab",
+      "category": "Zwierzęta",
+      "sourceLang": "Polish",
+      "targetLang": "English"
+    },
+    {
+      "id": "1752154627601",
+      "question": "Pociąg",
+      "answer": "Train",
+      "category": "Pojazdy",
+      "sourceLang": "Polish",
+      "targetLang": "English"
+    }
+  ]
+}

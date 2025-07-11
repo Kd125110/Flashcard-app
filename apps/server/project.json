@@ -1,0 +1,14 @@
+{
+  "name": "server",
+  "projectType": "application",
+  "sourceRoot": "apps/server",
+  "targets": {
+    "serve": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npm run dev",
+        "cwd": "apps/server"
+      }
+    }
+  }
+}
