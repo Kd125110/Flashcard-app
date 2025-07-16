@@ -8,29 +8,32 @@ const LoginPage: React.FC = () => {
   const [password, setPassword] = React.useState('');
   const [message, setMessage] = React.useState('');
 
-  const handleLogin = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setMessage('');
-    try {
-      const response = await fetch('http://localhost:3001/api/auth/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email, password }),
-      });
-      const data = await response.json();
+const handleLogin = async (e: React.FormEvent) => {
+  e.preventDefault();
+  setMessage('');
+  try {
+    const response = await fetch('http://localhost:3001/api/auth/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ email, password }),
+    });
 
-      if (response.ok) {
-        setMessage('Login successful!');
-        navigate('/dashboard');
-      } else {
-        setMessage(data.message || 'Login failed. Please try again.');
-      }
-    } catch {
-      setMessage('An error occurred while logging in. Please try again later.');
+    const data = await response.json();
+
+    if (response.ok) {
+      localStorage.setItem("authToken", data.token); // ⬅️ Zapis tokenu
+      setMessage('Login successful!');
+      navigate('/dashboard');
+    } else {
+      setMessage(data.message || 'Login failed. Please try again.');
     }
-  };
+  } catch {
+    setMessage('An error occurred while logging in. Please try again later.');
+  }
+};
+
 
   return (
     <div className="flex items-center justify-center mx-auto bg-transparent">
