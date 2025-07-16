@@ -8,9 +8,17 @@ const Navbar: React.FC = () => {
   const [menuOpen, setMenuOpen] = useState(false);
 
   const handleNavigate = (path: string) => {
+    localStorage.removeItem("authToken"); 
     navigate(path);
     setMenuOpen(false); // Close menu on navigation
   };
+  
+  const handleLogout = () => {
+    localStorage.removeItem("authToken"); // usuń token
+    setMenuOpen(false); // zamknij menu mobilne
+    navigate("/login"); // przekieruj na stronę logowania
+  };
+
 
   return (
     <nav className="w-full bg-[#1976d2] text-white fixed top-0 left-0 z-[1000] shadow-md">
@@ -65,7 +73,7 @@ const Navbar: React.FC = () => {
           <button onClick={() => handleNavigate("/usersetting")} className="ml-4 hover:underline">
             Konto
           </button>
-          <button onClick={() => handleNavigate("/login")} className="ml-2 hover:underline">
+          <button onClick={ handleLogout} className="ml-2 hover:underline">
             Wyloguj
           </button>
         </div>
@@ -79,7 +87,7 @@ const Navbar: React.FC = () => {
           <button onClick={() => handleNavigate("/show-flashcards-sets")}>Zobacz zbiory fiszek</button>
           <button onClick={() => handleNavigate("/guess")}>Zgadnij fiszke</button>
           <button onClick={() => handleNavigate("/usersetting")}>Konto</button>
-          <button onClick={() => handleNavigate("/login")}>Wyloguj</button>
+          <button onClick={handleLogout}>Wyloguj</button>
         </div>
       )}
     </nav>
