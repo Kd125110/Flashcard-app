@@ -1,23 +1,9 @@
 {
   "users": [
     {
+      "id": 1,
       "email": "test@example.com",
-      "password": "123456"
-    },
-    {
-      "id": 2,
-      "email": "test2@example.com",
-      "password": "1234567"
-    },
-    {
-      "id": 3,
-      "email": "test3@example.com",
-      "password": "123456"
-    },
-    {
-      "id": 4,
-      "email": "test5@example.com",
-      "password": "123456"
+      "password": "$2b$10$7FAKbQ8qDcSMCK03nrcSve646KlblVU50/n/fWhJBs0WihkGnlU8y"
     }
   ],
   "flashcards": [
@@ -68,6 +54,102 @@
       "category": "dada",
       "sourceLang": "Polish",
       "targetLang": "English"
+    },
+    {
+      "id": "1752679433343",
+      "question": "Kot",
+      "answer": "Cat",
+      "category": "Zwierzęta",
+      "sourceLang": "Polish",
+      "targetLang": "English"
+    },
+    {
+      "id": "1752679790279",
+      "question": "123",
+      "answer": "213",
+      "category": "123",
+      "sourceLang": "Polish",
+      "targetLang": "German"
+    },
+    {
+      "id": "1752679925955",
+      "question": "1231",
+      "answer": "231",
+      "category": "23",
+      "sourceLang": "Polish",
+      "targetLang": "German"
+    },
+    {
+      "id": "1752680066228",
+      "question": "12",
+      "answer": "12",
+      "category": "12",
+      "sourceLang": "Polish",
+      "targetLang": "German"
+    },
+    {
+      "id": "1752680247388",
+      "question": "21312",
+      "answer": "213123",
+      "category": "21312",
+      "sourceLang": "Polish",
+      "targetLang": "German"
+    },
+    {
+      "id": "1752680274988",
+      "question": "13",
+      "answer": "2132",
+      "category": "123",
+      "sourceLang": "Polish",
+      "targetLang": "English"
+    },
+    {
+      "id": "1752680387888",
+      "question": "213",
+      "answer": "213",
+      "category": "123",
+      "sourceLang": "Polish",
+      "targetLang": "English"
+    },
+    {
+      "id": "1752681506992",
+      "question": "pies",
+      "answer": "dog",
+      "category": "zwierzeta",
+      "sourceLang": "Polish",
+      "targetLang": "English"
+    },
+    {
+      "id": "1752681834761",
+      "question": "Koń morski",
+      "answer": "Sea Horse",
+      "category": "Zwierzęta",
+      "sourceLang": "Polish",
+      "targetLang": "English"
+    },
+    {
+      "id": "1752682002072",
+      "question": "123",
+      "answer": "123",
+      "category": "123",
+      "sourceLang": "Polish",
+      "targetLang": "English"
+    },
+    {
+      "id": "1752682357287",
+      "question": "Kot",
+      "answer": "Cat",
+      "category": "Zwierzeta",
+      "sourceLang": "Polish",
+      "targetLang": "English"
+    },
+    {
+      "id": "1752682424628",
+      "question": "Kot",
+      "answer": "Cat",
+      "category": "123",
+      "sourceLang": "Polish",
+      "targetLang": "German"
     }
   ]
 }
