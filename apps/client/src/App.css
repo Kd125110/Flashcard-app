@@ -31,6 +31,10 @@
   a:nth-of-type(2) .logo {
     animation: logo-spin infinite 20s linear;
   }
+  .navbar {
+    padding: 0 32px;
+    font-size: 1.2rem;
+  }
 }
 
 .card {
@@ -48,8 +52,8 @@
   color: white;
   display: flex;
   align-items: center;
-  padding: 0 32px;
-  font-size: 1.2rem;
+  padding: 0 16px;
+  font-size: 1rem;
   box-sizing: border-box;
   position: fixed;
   top: 0;
@@ -62,8 +66,8 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100vh;
-  width: 100vw;
+  height: device-height;
+  width: device-width;
   padding: 50px;
 }
 .btn {
@@ -88,7 +92,6 @@
 }
 
 .add-flashcard-btn {
-  margin-left: -256px;
   margin-right: auto; /* zmniejsza odstęp między przyciskami */
   background: transparent;
   color: white;
