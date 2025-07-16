@@ -1,4 +1,5 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import PrivateRoute from './components/PrivateRoute';
 import LoginPage from './pages/LoginPage';
 import DashboardPage from './pages/DashboardPage';
 import AddFlashcardPage from './pages/AddFlashcardPage';
@@ -14,16 +15,57 @@ function App() {
       <Routes>
         <Route path="/" element={<Navigate to="/login" />} />
         <Route path="/login" element={<LoginPage />} />
-        <Route path="/dashboard" element={<DashboardPage />} />
-        <Route path="/add-flashcard" element={<AddFlashcardPage />}/>
-        <Route path="/register" element={<RegisterPage />}/>
-        <Route path="/show-flashcards-sets" element={<ShowFlashcardSets />} />
-        <Route path="/guess" element={<GuessFlashcard />} />
-        <Route path="/edit" element= {<EditFlashcardPage/>} />
-        <Route path="/usersetting" element = {<UserSettingPage/>} />
-        {/* You can add more routes here as needed */}
-        {/* <Route path="/add-flashcard" element={<AddFlashcardPage />} /> */}
-        {/* Add other routes here as needed */}
+        <Route path="/register" element={<RegisterPage />} />
+
+        {/* Chronione trasy */}
+        <Route
+          path="/dashboard"
+          element={
+            <PrivateRoute>
+              <DashboardPage />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/add-flashcard"
+          element={
+            <PrivateRoute>
+              <AddFlashcardPage />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/show-flashcards-sets"
+          element={
+            <PrivateRoute>
+              <ShowFlashcardSets />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/guess"
+          element={
+            <PrivateRoute>
+              <GuessFlashcard />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/edit"
+          element={
+            <PrivateRoute>
+              <EditFlashcardPage />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/usersetting"
+          element={
+            <PrivateRoute>
+              <UserSettingPage />
+            </PrivateRoute>
+          }
+        />
       </Routes>
     </Router>
   );
