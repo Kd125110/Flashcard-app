@@ -68,12 +68,12 @@ return (
     <Navbar />
 
     {/* Główny układ strony */}
-    <div className="bg-gray-100 flex flex-col lg:flex-row justify-center items-start gap-10 p-6 max-w-screen-xl mx-auto">
+    <div className="bg-white flex flex-col lg:flex-row justify-center items-start gap-10 p-6 max-w-screen-xl mx-auto">
       
       {/* Formularz dodawania fiszki */}
       <form
         onSubmit={handleSubmit}
-        className="bg-white p-4 sm:p-6 md:p-8 rounded shadow min-w-[100px] sm:min-w-[150px] md:min-w-[200px] flex flex-col gap-4 w-full sm:w-3/4 md:w-2/3 lg:w-1/2 xl:w-1/3"
+        className="bg-white p-4 sm:p-6 md:p-8 rounded shadow min-w-[100px] sm:min-w-[150px] md:min-w-[300px] flex flex-col gap-4 w-full sm:w-3/4 md:w-2/3 lg:w-1/2 xl:w-1/3"
 
       >
         <h2 className="text-xl font-semibold">Dodaj nową fiszkę</h2>
