@@ -2,16 +2,21 @@
   "name": "workspace-root",
   "version": "1.0.0",
   "devDependencies": {
+    "@eslint/js": "^9.31.0",
     "@types/react": "^19.1.8",
     "@types/react-dom": "^19.1.6",
     "@types/react-router-dom": "^5.3.3",
     "@vitejs/plugin-react": "^4.6.0",
     "autoprefixer": "^10.4.21",
     "concurrently": "^9.2.0",
+    "eslint": "^9.31.0",
+    "eslint-plugin-react": "^7.37.5",
     "eslint-plugin-react-hooks": "^5.2.0",
+    "globals": "^16.3.0",
     "nx": "21.2.2",
     "postcss": "^8.5.6",
-    "tailwindcss": "^3.4.17"
+    "tailwindcss": "^3.4.17",
+    "typescript-eslint": "^8.37.0"
   },
   "scripts": {
     "start:all": "nx run-many --target=serve --projects=client,server --parallel --verbose"
