@@ -4,6 +4,11 @@
       "id": 1,
       "email": "test@example.com",
       "password": "$2b$10$7FAKbQ8qDcSMCK03nrcSve646KlblVU50/n/fWhJBs0WihkGnlU8y"
+    },
+    {
+      "id": 2,
+      "email": "test1@example.com",
+      "password": "$2b$10$qHYTDxK6fgZ.eDjQIr1CdevE9dxDVAFTSpAWAe2MtlkTzBxh1OOom"
     }
   ],
   "flashcards": [
@@ -28,14 +33,6 @@
       "question": "Krab",
       "answer": "Crab",
       "category": "Zwierzęta",
-      "sourceLang": "Polish",
-      "targetLang": "English"
-    },
-    {
-      "id": "1752154627601",
-      "question": "Pociąg",
-      "answer": "Train",
-      "category": "Pojazdy",
       "sourceLang": "Polish",
       "targetLang": "English"
     },
@@ -72,20 +69,12 @@
       "targetLang": "English"
     },
     {
-      "id": "1752752046319",
-      "question": "asd",
-      "answer": "asd",
-      "category": "asd",
-      "sourceLang": "Polish",
-      "targetLang": "English"
-    },
-    {
-      "id": "1752752078455",
-      "question": "123",
-      "answer": "21",
-      "category": "1",
-      "sourceLang": "Polish",
-      "targetLang": "English"
+      "id": "1752783611185",
+      "question": "Man",
+      "answer": "Mężczyzna",
+      "category": "Ludzie",
+      "sourceLang": "English",
+      "targetLang": "Polish"
     }
   ]
 }

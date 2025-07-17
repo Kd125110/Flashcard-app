@@ -6,7 +6,6 @@ import { authenticateToken } from '../middleware/auth.js';
 
 dotenv.config();
 
-let process;
 
 const router = express.Router();
 
