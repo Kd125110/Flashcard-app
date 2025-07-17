@@ -29,6 +29,9 @@ jobs:
 
       - name: Install nodemon
         run: npm install -g nodemon
+        
+      - name: Install cors
+        run: npm install cors
 
       - name: Start all apps (Nx Monorepo)
         run: npm run start:all
