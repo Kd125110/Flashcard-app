@@ -62,14 +62,21 @@ const AddFlashcardPage: React.FC = () => {
     }
   };
 
-  return (
-    <div className="flashcard-layout">
-      <Navbar />
+return (
+  <div className="min-h-screen bg-white mt-10">
+    {/* Navbar jako element nadrzędny */}
+    <Navbar />
+
+    {/* Główny układ strony */}
+    <div className="flex flex-col lg:flex-row justify-center items-start gap-10 p-6 max-w-screen-xl mx-auto">
+      
+      {/* Formularz dodawania fiszki */}
       <form
         onSubmit={handleSubmit}
-        className='bg-white p-8 rounded shadow min-w-[300px] flex flex-col gap-4'
+        className="bg-white p-8 rounded shadow min-w-[200px] flex flex-col gap-4 w-full lg:w-1/2"
       >
-        <h2>Dodaj nową fiszkę</h2>
+        <h2 className="text-xl font-semibold">Dodaj nową fiszkę</h2>
+
         <input
           className="p-2 border border-gray-300 rounded text-base"
           type="text"
@@ -94,33 +101,41 @@ const AddFlashcardPage: React.FC = () => {
           onChange={e => setCategory(e.target.value)}
           required
         />
-       <select
+        <select
           className="p-2 border border-gray-300 rounded text-base"
           value={sourceLang}
           onChange={e => setSourceLang(e.target.value)}
-          required>
+          required
+        >
           <option value="">Wybierz język źródłowy</option>
           <option value="Polish">Polski</option>
           <option value="English">Angielski</option>
           <option value="German">Niemiecki</option>
-       </select>
-       <select
+        </select>
+        <select
           className="p-2 border border-gray-300 rounded text-base"
           value={targetLang}
           onChange={e => setTargetLang(e.target.value)}
-          required>
+          required
+        >
           <option value="">Wybierz język docelowy</option>
           <option value="Polish">Polski</option>
           <option value="English">Angielski</option>
           <option value="German">Niemiecki</option>
-       </select>
-        <button type="submit" className="p-3 rounded border-none bg-[#007bff] text-white font-bold cursor-pointer text-base">
+        </select>
+
+        <button
+          type="submit"
+          className="p-3 rounded bg-blue-600 text-white font-bold hover:bg-blue-700"
+        >
           Dodaj fiszkę
         </button>
-        {message && <p>{message}</p>}
+
+        {message && <p className="text-sm text-center">{message}</p>}
       </form>
 
-      <div className="flex-1 flex justify-end">
+      {/* Podgląd ostatnio dodanej fiszki */}
+      <div className="w-full lg:w-1/2 flex justify-center items-start">
         {flashcards.length > 0 && (
           <Flashcard
             question={flashcards[flashcards.length - 1].question}
@@ -132,7 +147,9 @@ const AddFlashcardPage: React.FC = () => {
         )}
       </div>
     </div>
-  );
+  </div>
+);
+
 };
 
 export default AddFlashcardPage;
