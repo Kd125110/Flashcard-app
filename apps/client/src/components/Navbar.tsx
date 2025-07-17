@@ -9,7 +9,7 @@ const Navbar: React.FC = () => {
 
   const handleNavigate = (path: string) => {
     navigate(path);
-    setMenuOpen(false); // Close menu on navigation
+    setMenuOpen(false); 
   };
   
   const handleLogout = () => {
