@@ -36,5 +36,9 @@ jobs:
       - name: Install lowdb
         run: npm install lowdb
 
-      - name: Start all apps (Nx Monorepo)
-        run: npm run start:all
+      - name:  Build all apps
+        run: npx nx run-many --target=build --all
+
+      - name: Lint all apss
+        run: npx nx run-many --target=lint --all
+
