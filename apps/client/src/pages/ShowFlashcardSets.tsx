@@ -21,7 +21,7 @@ const ShowFlashcardSets: React.FC = () => {
 
       const data = Array.isArray(res.data) ? res.data : res.data.flashcards;
 
-      const groupedByCategory = data.reduce((acc: Record<string, Flashcard[]>, card:any) => {
+      const groupedByCategory = data.reduce((acc: Record<string, Flashcard[]>, card:Flashcard) => {
         const categoryKey = card.category || "Bez kategorii";
         if (!acc[categoryKey]) {
           acc[categoryKey] = [];
