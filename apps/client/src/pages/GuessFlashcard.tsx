@@ -90,7 +90,6 @@ const GuessFlashcard: React.FC = () => {
         category={currentCard.category}
         sourceLang={currentCard.sourceLang}
         targetLang={currentCard.targetLang}
-        flipped={flipped}
         blurred={blurred} 
         />
    
