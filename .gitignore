@@ -6,5 +6,7 @@ node_modules
 
 .env
 
+apps/server/db.json
+
 .cursor/rules/nx-rules.mdc
 .github/instructions/nx.instructions.md
