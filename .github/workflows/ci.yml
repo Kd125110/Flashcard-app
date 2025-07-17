@@ -9,6 +9,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env: 
+        NX_CLOUD_ACCES_TOKEN: ${{secrets.Mjk2NjI2MTItMzI4MC00M2JiLTk5MzItM2E4NWJmODA3NDZh}}
 
     steps:
       - name: Checkout repository
