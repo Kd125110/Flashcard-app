@@ -17,7 +17,6 @@ const GuessFlashcard: React.FC = () => {
   const [currentCard, setCurrentCard] = useState<Flashcard | null>(null);
   const [userGuess, setUserGuess] = useState('');
   const [feedback, setFeedback] = useState('');
-  const [flipped, setFlipped] = useState(false);
   const [cardIndex, setCardIndex] = useState(0);
   const [blurred, setBlurred] = useState(true);
 
@@ -48,7 +47,6 @@ const GuessFlashcard: React.FC = () => {
     if (!currentCard) return;
     if (userGuess.trim().toLowerCase() === currentCard.answer.toLowerCase()) {
       setFeedback('✅ Nice one!');
-      setFlipped(true);
       setBlurred(false); 
 
       setTimeout(() => {
@@ -58,11 +56,9 @@ const GuessFlashcard: React.FC = () => {
         setCurrentCard(cards[nextCard]);
         setUserGuess('');
         setFeedback('');
-        setFlipped(true);
         setBlurred(true); 
       }, 2000)
     } else {
-      setFlipped(false);  
       setFeedback('❌ Try again!');
     }
   };
