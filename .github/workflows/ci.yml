@@ -36,12 +36,16 @@ jobs:
       - name: Install lowdb
         run: npm install lowdb
 
-      - name: Install Eslint
-        run: npm install eslint-plugin-react-hooks --save-dev
+      
+      - name: Install ESLint and plugins
+        run: |
+          npm install --save-dev eslint
+          npm install --save-dev eslint-plugin-react eslint-plugin-react-hooks eslint-plugin-react-refresh
+
 
       - name:  Build all apps
         run: npx nx run-many --target=build --all
 
-    #   - name: Lint all apss
-    #     run: npx nx run-many --target=lint --all
+      - name: Lint all apss
+        run: npx nx run-many --target=lint --all
 
