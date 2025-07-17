@@ -8,7 +8,6 @@ const Navbar: React.FC = () => {
   const [menuOpen, setMenuOpen] = useState(false);
 
   const handleNavigate = (path: string) => {
-    localStorage.removeItem("authToken"); 
     navigate(path);
     setMenuOpen(false); // Close menu on navigation
   };
