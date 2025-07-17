@@ -36,6 +36,9 @@ jobs:
       - name: Install lowdb
         run: npm install lowdb
 
+      - name: Install Eslint
+        run: npm install eslint
+
       - name:  Build all apps
         run: npx nx run-many --target=build --all
 
