@@ -33,5 +33,8 @@ jobs:
       - name: Install cors
         run: npm install cors
 
+      - name: Install lowdb
+        run: npm install lowdb
+
       - name: Start all apps (Nx Monorepo)
         run: npm run start:all
