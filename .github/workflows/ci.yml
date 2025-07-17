@@ -24,6 +24,9 @@ jobs:
       - name: Install dependencies
         run: npm install
 
+      - name: Install express
+        run: npm install express
+
       - name: Install nodemon
         run: npm install -g nodemon
 
