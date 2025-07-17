@@ -1,5 +1,3 @@
-import e from "express";
-
 export const addFlashcard = async (req, res) => {
   const db = req.db;
   await db.read();
