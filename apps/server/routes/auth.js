@@ -6,6 +6,8 @@ import { authenticateToken } from '../middleware/auth.js';
 
 dotenv.config();
 
+var process;
+
 const router = express.Router();
 
 // 🔐 Protected route example
@@ -68,7 +70,7 @@ router.post('/login', async (req, res) => {
 
   const token = jwt.sign(
     { userId: user.id, email: user.email },
-    process.env.JWT_SECRET,
+      process.env.JWT_SECRET,
     { expiresIn: '1h' }
   );
 
