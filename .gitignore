@@ -8,5 +8,7 @@ node_modules
 
 apps/server/db.json
 
+db.json
+
 .cursor/rules/nx-rules.mdc
 .github/instructions/nx.instructions.md
