@@ -5,6 +5,7 @@ on:
     branches: [master]
   pull_request:
     branches: [master]
+    types: [closed]
 
 jobs:
   build:
@@ -49,7 +50,8 @@ jobs:
         run: npx nx run-many --target=lint --all
 
       - name: Delete merged branch
-        if: github.event.name == 'pull request' && github.event.pull_request.merged == true
+        if: github.event_name == 'pull_request' && github.event.pull_request.merged == true
+
         run: |
           BRANCH_NAME=${{github.head_ref}}
           echo "Deleting branch: $BRANCH_NAME"
