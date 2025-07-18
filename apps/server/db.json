@@ -1,14 +1,19 @@
 {
   "users": [
     {
-      "id": 2,
-      "email": "test1@example.com",
-      "password": "$2b$10$qHYTDxK6fgZ.eDjQIr1CdevE9dxDVAFTSpAWAe2MtlkTzBxh1OOom"
+      "id": 1,
+      "email": "test2@example.com",
+      "password": "123456"
     },
     {
       "id": 2,
       "email": "Karol@gmail.com",
       "password": "$2b$10$6le381eBohBO2F6oYX6aHeXKK.1lETx7i6hHEaSRZn5ual5bdrFvu"
+    },
+    {
+      "id": 3,
+      "email": "test@example.com",
+      "password": "$2b$10$KEXKwrRgXLlAASOM72mVQe5Yz8Dsy.w2d6BcjqEMIwfSLtRUQFZnu"
     }
   ],
   "flashcards": [

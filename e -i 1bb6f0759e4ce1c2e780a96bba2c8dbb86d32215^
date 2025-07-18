@@ -1,0 +1,521 @@
+[33mcommit aff79fca0555af3b2f82fbb48aaf97d36f10ec68[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mUser_edit_page[m[33m, [m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmaster[m[33m, [m[1;32mUsers_edit_page[m[33m)[m
+Merge: 253e42a 1bb6f07
+Author: Karol Dąbrowski <133639711+Kd125110@users.noreply.github.com>
+Date:   Fri Jul 18 09:33:51 2025 +0200
+
+    Merge pull request #5 from Kd125110/User_Page
+    
+    Added name and surname for user
+
+[33mcommit 1bb6f0759e4ce1c2e780a96bba2c8dbb86d32215[m[33m ([m[1;31morigin/User_Page[m[33m, [m[1;32mUser_Page[m[33m)[m
+Author: Kd125110 <karol.dabrowski@capgemini.com>
+Date:   Fri Jul 18 09:31:25 2025 +0200
+
+    Added name and surname for user
+
+[33mcommit 253e42ae0eef15d403789169a4cfa8742805cd45[m
+Author: Kd125110 <karol.dabrowski@capgemini.com>
+Date:   Fri Jul 18 09:23:18 2025 +0200
+
+    Added delete branch after merge to CI
+
+[33mcommit 9842f8029f6bd46b94ebb5c07e6e41190b03cc53[m
+Merge: 7f95f41 0218af7
+Author: Karol Dąbrowski <133639711+Kd125110@users.noreply.github.com>
+Date:   Fri Jul 18 09:13:11 2025 +0200
+
+    Merge pull request #4 from Kd125110/user_delete
+    
+    Created delete method for users
+
+[33mcommit 0218af735bc270b178e12255eae92d2de2c98d13[m[33m ([m[1;31morigin/user_delete[m[33m, [m[1;32muser_delete[m[33m)[m
+Author: Kd125110 <karol.dabrowski@capgemini.com>
+Date:   Fri Jul 18 08:49:43 2025 +0200
+
+    Created delete method for users
+
+[33mcommit 7f95f41478d1fafbdf1191ee7fb28f645d1abd69[m
+Author: Kd125110 <karol.dabrowski@capgemini.com>
+Date:   Fri Jul 18 08:43:26 2025 +0200
+
+    Created a edit method for users
+
+[33mcommit 31fd2b7b77ea71c621963b8f20cea5337d077d16[m
+Author: Kd125110 <karol.dabrowski@capgemini.com>
+Date:   Thu Jul 17 22:32:36 2025 +0200
+
+    some changes to make project better
+
+[33mcommit 2019d7fd5bb3089277d2859f3cfd4c7aec6925d8[m
+Author: Kd125110 <karol.dabrowski@capgemini.com>
+Date:   Thu Jul 17 13:39:11 2025 +0200
+
+    changed css in AddFlashcardPage.tsx
+
+[33mcommit 283b7d4fac0dd49ebe7b9537d1aae24dcdb600af[m
+Author: Kd125110 <karol.dabrowski@capgemini.com>
+Date:   Thu Jul 17 13:23:25 2025 +0200
+
+    updated gitignore
+
+[33mcommit 88f5795c28cd0fec7a3d3da975e3ed54f6d90521[m
+Author: Kd125110 <karol.dabrowski@capgemini.com>
+Date:   Thu Jul 17 13:22:46 2025 +0200
+
+    updated gitignore
+
+[33mcommit 6d00e0b8652b31ae9a364300615d02aacba21074[m
+Author: Kd125110 <karol.dabrowski@capgemini.com>
+Date:   Thu Jul 17 13:19:27 2025 +0200
+
+    initialized variable
+
+[33mcommit 86bb32b77e4e623e0c752388cee61db715c6a1de[m
+Author: Kd125110 <karol.dabrowski@capgemini.com>
+Date:   Thu Jul 17 13:19:13 2025 +0200
+
+    initialized variable
+
+[33mcommit 737c2d60cd24b4b354d0e8218005356adb7024df[m
+Author: Kd125110 <karol.dabrowski@capgemini.com>
+Date:   Thu Jul 17 13:18:35 2025 +0200
+
+    Delete usless import
+
+[33mcommit 2cf920f69792812ab687a2a22068723208174761[m
+Author: Kd125110 <karol.dabrowski@capgemini.com>
+Date:   Thu Jul 17 13:17:24 2025 +0200
+
+    Added edit and delete function to Page
+
+[33mcommit d1edfff0a0328a10f47c0e7aca7bb1a8b72b7c81[m
+Author: Kd125110 <karol.dabrowski@capgemini.com>
+Date:   Thu Jul 17 13:16:52 2025 +0200
+
+    Finished responsivness
+
+[33mcommit 9863bf3e41715ffca6458b1c46b7b8a970477be4[m
+Author: Kd125110 <karol.dabrowski@capgemini.com>
+Date:   Thu Jul 17 10:48:39 2025 +0200
+
+    Changed type from any to Flashcard
+
+[33mcommit 53957ac2ca7b73d21e7c680883659d1f20b993a4[m
+Author: Kd125110 <karol.dabrowski@capgemini.com>
+Date:   Thu Jul 17 10:44:28 2025 +0200
+
+    Reparir ESLint
+
+[33mcommit 4dfc1e22678fc392ebee4326f773945ed1b505ab[m
+Author: Kd125110 <karol.dabrowski@capgemini.com>
+Date:   Thu Jul 17 10:29:45 2025 +0200
+
+    Refactor
+
+[33mcommit 64bf53e2f7b17e627864a4d2aa62267eae316b94[m
+Author: Kd125110 <karol.dabrowski@capgemini.com>
+Date:   Thu Jul 17 10:26:50 2025 +0200
+
+    added typescript package for ESLint to workflow
+
+[33mcommit 2806a05a7f83a5184667417fbab233197bb5b1d9[m
+Author: Kd125110 <karol.dabrowski@capgemini.com>
+Date:   Thu Jul 17 10:22:58 2025 +0200
+
+    added some plugins for ESLint to workflow
+
+[33mcommit 4dfd8a24840d0d95051595c1c8445d18a1af7a92[m
+Author: Kd125110 <karol.dabrowski@capgemini.com>
+Date:   Thu Jul 17 10:20:13 2025 +0200
+
+    Delted lint all apss
+
+[33mcommit a90e7a837b509844ed9eb6c87b65a379110acd3a[m
+Author: Kd125110 <karol.dabrowski@capgemini.com>
+Date:   Thu Jul 17 10:17:05 2025 +0200
+
+    changed eslint to workflow
+
+[33mcommit 47684b004f53424aac2a23d8612e5b866c972985[m
+Author: Kd125110 <karol.dabrowski@capgemini.com>
+Date:   Thu Jul 17 10:14:06 2025 +0200
+
+    added eslint to workflow
+
+[33mcommit 54570e70dcdc5d66b3c482554e0c84dee7bcf2fc[m
+Author: Kd125110 <karol.dabrowski@capgemini.com>
+Date:   Thu Jul 17 10:11:54 2025 +0200
+
+    Eslint
+
+[33mcommit 7b2b4e056e32644cb3110e22ecaae07f7a3440a2[m
+Author: Kd125110 <karol.dabrowski@capgemini.com>
+Date:   Thu Jul 17 09:53:33 2025 +0200
+
+    Deleted useState for flipped
+
+[33mcommit 69cc6457323a62910642b3771855fa9ceae85f2d[m
+Author: Kd125110 <karol.dabrowski@capgemini.com>
+Date:   Thu Jul 17 09:47:38 2025 +0200
+
+    changed from start:all to build and lint
+
+[33mcommit 632db629c46b039d1a50a44f696a69cbc8ef05aa[m
+Author: Kd125110 <karol.dabrowski@capgemini.com>
+Date:   Thu Jul 17 09:45:14 2025 +0200
+
+    Deleted line with flipped (I dont use it anymore)
+
+[33mcommit e203eca96f0349104d449d3a19978dd725d05009[m
+Author: Kd125110 <karol.dabrowski@capgemini.com>
+Date:   Thu Jul 17 09:39:20 2025 +0200
+
+    Deleted line with remove authToken from handleNavigate
+
+[33mcommit 437a9aa19a7f55bd94da83df8017f4d78d96c42c[m
+Author: Kd125110 <karol.dabrowski@capgemini.com>
+Date:   Thu Jul 17 09:29:29 2025 +0200
+
+    Added lowdb to install(workflow)
+
+[33mcommit 7a3869ed615f4765e31b3d21a765622aaa4baaf0[m
+Author: Kd125110 <karol.dabrowski@capgemini.com>
+Date:   Thu Jul 17 09:27:57 2025 +0200
+
+    Added cors to install(workflow)
+
+[33mcommit f807436434afef473b83e9b7a70c799c671f2ba2[m
+Author: Kd125110 <karol.dabrowski@capgemini.com>
+Date:   Thu Jul 17 09:26:15 2025 +0200
+
+    Added express to install
+
+[33mcommit f9c189215f9b4fa5fcb19b89081824eb5ae732c5[m
+Author: Kd125110 <karol.dabrowski@capgemini.com>
+Date:   Thu Jul 17 09:20:36 2025 +0200
+
+    Add more commands to workflow
+
+[33mcommit 5220867fcf70112c519ba0ab1aa39fcd239672e6[m
+Author: Kd125110 <karol.dabrowski@capgemini.com>
+Date:   Thu Jul 17 07:53:59 2025 +0200
+
+    Added nx token
+
+[33mcommit 6aac5b20cb4e1eaf855f116da63537c1d638ed10[m
+Author: Kd125110 <karol.dabrowski@capgemini.com>
+Date:   Thu Jul 17 07:49:08 2025 +0200
+
+    Added nx token
+
+[33mcommit bee7ed6c97314274e8418a02b4dd35ddbc1f982d[m
+Author: Kd125110 <karol.dabrowski@capgemini.com>
+Date:   Thu Jul 17 07:46:40 2025 +0200
+
+    Added nx token
+
+[33mcommit 96fa9b81f39aed5afe583f8dab07aef7ba7236e4[m
+Author: Kd125110 <karol.dabrowski@capgemini.com>
+Date:   Thu Jul 17 07:23:31 2025 +0200
+
+    Test CI workflow
+
+[33mcommit 6561654fbc1681aa46a31d05eb6bd33a92bce630[m
+Author: Kd125110 <karol.dabrowski@capgemini.com>
+Date:   Wed Jul 16 19:31:14 2025 +0200
+
+    added to gitignore
+
+[33mcommit 88decd1ca8c1dd02749f361036fc348f516f2336[m
+Author: Karol Dąbrowski <133639711+Kd125110@users.noreply.github.com>
+Date:   Wed Jul 16 19:30:14 2025 +0200
+
+    Delete apps/server/.env
+
+[33mcommit 8de47f45c970df60af59d3ba8c8411cbfea0b750[m
+Author: Kd125110 <karol.dabrowski@capgemini.com>
+Date:   Wed Jul 16 19:19:03 2025 +0200
+
+    Added PriveteRoute component to use in routes
+
+[33mcommit 989b18aff51870e0135d9f023a8c617f27ecc85d[m
+Author: Kd125110 <karol.dabrowski@capgemini.com>
+Date:   Wed Jul 16 19:17:40 2025 +0200
+
+    Created PrivateRoute.tsx component which checks for the presence of authToken
+
+[33mcommit 0d85ac1f0e66731dcb5ac1199f7b341d44aaec8f[m
+Author: Kd125110 <karol.dabrowski@capgemini.com>
+Date:   Wed Jul 16 19:15:03 2025 +0200
+
+    Change logout method now we remove authToken
+
+[33mcommit 8c0bebf3dc312380a07ce4e09dab127a1540e910[m
+Author: Kd125110 <karol.dabrowski@capgemini.com>
+Date:   Wed Jul 16 19:13:34 2025 +0200
+
+    Updated login method now we use token
+
+[33mcommit a17aca38a271c253d1274563f249687276bfc543[m
+Author: Kd125110 <karol.dabrowski@capgemini.com>
+Date:   Wed Jul 16 18:24:11 2025 +0200
+
+    Deleted one line which I forgot to delete before
+
+[33mcommit f02e4fb7418511d905c53a19ce580dadabba5dc7[m
+Merge: d8b5a77 06d710e
+Author: Karol Dąbrowski <133639711+Kd125110@users.noreply.github.com>
+Date:   Wed Jul 16 18:20:23 2025 +0200
+
+    Merge pull request #3 from Kd125110/Responsivness
+    
+    Make app responsivness for all devices (I think is good enough) upgre…
+
+[33mcommit 06d710ee5dfd5c2265c05ceaded94d2cdd6d8f1f[m[33m ([m[1;31morigin/Responsivness[m[33m, [m[1;32mResponsivness[m[33m)[m
+Author: Kd125110 <karol.dabrowski@capgemini.com>
+Date:   Wed Jul 16 18:18:32 2025 +0200
+
+    Make app responsivness for all devices (I think is good enough) upgred later
+
+[33mcommit d8b5a770d68617dc0670558034742db36078b651[m
+Merge: ef18406 2c82841
+Author: Karol Dąbrowski <133639711+Kd125110@users.noreply.github.com>
+Date:   Tue Jul 15 16:03:59 2025 +0200
+
+    Merge pull request #2 from Kd125110/Auth
+    
+    Auth
+
+[33mcommit 2c828412db07f9c8fd5bffe2cc35c0832c1cd0e5[m[33m ([m[1;31morigin/Auth[m[33m, [m[1;32mAuth[m[33m)[m
+Author: Kd125110 <karol.dabrowski@capgemini.com>
+Date:   Tue Jul 15 15:58:54 2025 +0200
+
+    Middleware for authorization
+
+[33mcommit 3ba2ec53fc4a3ef014b8e2b3b15364d07702a335[m
+Author: Kd125110 <karol.dabrowski@capgemini.com>
+Date:   Tue Jul 15 15:57:52 2025 +0200
+
+    Change login and register rn using JWT and bcrypt to hash the password
+
+[33mcommit ef1840653873f3d2eafc36bebf8265be582409d2[m
+Author: Kd125110 <karol.dabrowski@capgemini.com>
+Date:   Tue Jul 15 15:39:14 2025 +0200
+
+    added delete and edit function in backend
+
+[33mcommit da0dcb8e66af8a9813262f262fed1aeaa769e196[m
+Author: Kd125110 <karol.dabrowski@capgemini.com>
+Date:   Thu Jul 10 15:35:06 2025 +0200
+
+    vite config
+
+[33mcommit 31ffd32a944656bc1d16deb6b440b80246545922[m
+Author: Kd125110 <karol.dabrowski@capgemini.com>
+Date:   Thu Jul 10 15:29:24 2025 +0200
+
+    Changed .get to .use in flashcard endpoint
+
+[33mcommit c8f8c53cb573ab60e4c5066db6fd72a512d82584[m
+Author: Kd125110 <karol.dabrowski@capgemini.com>
+Date:   Thu Jul 10 15:28:32 2025 +0200
+
+    Added routing
+
+[33mcommit f9f927b3874af92c2e822db58e3692767a430147[m
+Author: Kd125110 <karol.dabrowski@capgemini.com>
+Date:   Thu Jul 10 15:27:43 2025 +0200
+
+    Created get method
+
+[33mcommit 26a347e3a611ee0a19bd4b1e54239fbad64ca197[m
+Author: Kd125110 <karol.dabrowski@capgemini.com>
+Date:   Thu Jul 10 15:25:44 2025 +0200
+
+    Added tailwindcss to project
+
+[33mcommit a34304992a8cbb42d5e5327a4a88fc0d3e7f1235[m
+Author: Kd125110 <karol.dabrowski@capgemini.com>
+Date:   Thu Jul 10 15:25:26 2025 +0200
+
+    Added tailwindcss to project
+
+[33mcommit da8aa1795a76a28ea9043ee236011e117868b44a[m
+Author: Kd125110 <karol.dabrowski@capgemini.com>
+Date:   Thu Jul 10 15:24:34 2025 +0200
+
+    Updated web_app name
+
+[33mcommit 4002d7d0925b2f4ff84c575ee35c8b91194a68ab[m
+Author: Kd125110 <karol.dabrowski@capgemini.com>
+Date:   Thu Jul 10 15:24:02 2025 +0200
+
+    Added tailwindcss
+
+[33mcommit 2dae24cf8790f1c7c6ab96bd6084f2eeeb7cc7db[m
+Author: Kd125110 <karol.dabrowski@capgemini.com>
+Date:   Thu Jul 10 15:21:49 2025 +0200
+
+    Flashcard styles which allows to rotate
+
+[33mcommit c26c72699a09b9604fadd4b504b0dcff163d02c4[m
+Author: Kd125110 <karol.dabrowski@capgemini.com>
+Date:   Thu Jul 10 15:20:58 2025 +0200
+
+    Added more routings
+
+[33mcommit c416b5fcdb740039a71b9160c8cd4ac8bb701f4a[m
+Author: Kd125110 <karol.dabrowski@capgemini.com>
+Date:   Thu Jul 10 15:20:40 2025 +0200
+
+    Styles for pages
+
+[33mcommit 4e66ff4c020f3fd37e70993ccf97ba76d5806eeb[m
+Author: Kd125110 <karol.dabrowski@capgemini.com>
+Date:   Thu Jul 10 15:19:27 2025 +0200
+
+    Created page for users to change cridentials
+
+[33mcommit b9e9ebeb773ffb209a9162b3a74a5ca5fc09bd81[m
+Author: Kd125110 <karol.dabrowski@capgemini.com>
+Date:   Thu Jul 10 15:18:58 2025 +0200
+
+    Created page to look on flashcard sets
+
+[33mcommit df2471f7c159bda1915ca88662e36a8ebf0b125a[m
+Author: Kd125110 <karol.dabrowski@capgemini.com>
+Date:   Thu Jul 10 15:18:16 2025 +0200
+
+    Working guessing flashcards with changing to next and blurred back site
+
+[33mcommit 5d007ad6f02156d998dcd33c82e3c61a22dd5598[m
+Author: Kd125110 <karol.dabrowski@capgemini.com>
+Date:   Thu Jul 10 15:17:22 2025 +0200
+
+    Created page for editing flashcards
+
+[33mcommit 0e3f082efab2d0e040c15af1ba55054ad6bfb91a[m
+Author: Kd125110 <karol.dabrowski@capgemini.com>
+Date:   Thu Jul 10 15:14:08 2025 +0200
+
+    Add select for language
+
+[33mcommit 05554e089e3aa1517bccda0da4ac3824c54753f4[m
+Author: Kd125110 <karol.dabrowski@capgemini.com>
+Date:   Thu Jul 10 15:13:46 2025 +0200
+
+    change interface for flashcard
+
+[33mcommit 7c6c401eab45c9645558d31d156dd81387461cf4[m
+Author: Kd125110 <karol.dabrowski@capgemini.com>
+Date:   Thu Jul 10 15:11:13 2025 +0200
+
+    Added more rounting to new layouts
+
+[33mcommit 0a1801057eb0481a0c7954ff299bf4bc4d063dcd[m
+Author: Kd125110 <karol.dabrowski@capgemini.com>
+Date:   Thu Jul 10 06:37:31 2025 +0200
+
+    Added tailwindcss to project
+
+[33mcommit 63a2cd1765869fa58e8aa19ee29e6b019c3d721d[m
+Author: Kd125110 <karol.dabrowski@capgemini.com>
+Date:   Thu Jul 10 06:35:39 2025 +0200
+
+    Added tailwindcss to project
+
+[33mcommit c98710535225d89d0080cc9f99a21d9f0082031c[m
+Author: Kd125110 <karol.dabrowski@capgemini.com>
+Date:   Wed Jul 9 06:16:19 2025 +0200
+
+    Created RegisterPage wchich allows us to add user to database
+
+[33mcommit 03503cae71a66e56028a8c538ea4c6a079454bfc[m
+Author: Kd125110 <karol.dabrowski@capgemini.com>
+Date:   Wed Jul 9 06:15:33 2025 +0200
+
+    Created Dashboard page for easy moving on site
+
+[33mcommit 6820cae766b10c4ca5d12484fe66ea5b046d9997[m
+Author: Kd125110 <karol.dabrowski@capgemini.com>
+Date:   Wed Jul 9 06:14:28 2025 +0200
+
+    Created view for adding flashcards to database
+
+[33mcommit 50d8ecfaa10e1f4a39d7f50e572aadf9d292a859[m
+Author: Kd125110 <karol.dabrowski@capgemini.com>
+Date:   Wed Jul 9 06:13:51 2025 +0200
+
+    Modified LoginPage stoped usuing LoginForm
+
+[33mcommit b9c5c2fbefb1cfce2db0ce64da8e669dbdedf73f[m
+Author: Kd125110 <karol.dabrowski@capgemini.com>
+Date:   Wed Jul 9 06:11:57 2025 +0200
+
+    Created mulit-use flashcard component
+
+[33mcommit 9ecde60d825b86f1c0a4465e8374a7c569e94d64[m
+Author: Kd125110 <karol.dabrowski@capgemini.com>
+Date:   Wed Jul 9 06:11:17 2025 +0200
+
+    Created Navbar for project multi-use component
+
+[33mcommit 4e58d7eb5d7d1b3a8c7d1be5188c45172f7d1ff5[m
+Author: Kd125110 <karol.dabrowski@capgemini.com>
+Date:   Wed Jul 9 06:08:50 2025 +0200
+
+    More working routings
+
+[33mcommit 9ee21c054ab0a531a988229b97f426c7a300002a[m
+Author: Kd125110 <karol.dabrowski@capgemini.com>
+Date:   Wed Jul 9 06:07:54 2025 +0200
+
+    Add some styles for dashboard and flashcards still working on
+
+[33mcommit a7ceaaaab5943cce0119d06ff374d4dead1a5118[m
+Author: Kd125110 <karol.dabrowski@capgemini.com>
+Date:   Wed Jul 9 06:05:59 2025 +0200
+
+    Add router with post method
+
+[33mcommit 4b60bf2e770350175c87120539e5537d97baf963[m
+Author: Kd125110 <karol.dabrowski@capgemini.com>
+Date:   Wed Jul 9 06:05:11 2025 +0200
+
+    Updated flashcard endpoint from get to use (Now i got all methods not only get)
+
+[33mcommit 8aa09189dd2a22eac53db3e3bd25100572b77501[m
+Author: Kd125110 <karol.dabrowski@capgemini.com>
+Date:   Wed Jul 9 06:00:55 2025 +0200
+
+    Created post method to add flashcard to database
+
+[33mcommit ec6aa660723dc31f4c5d04114e91a71cda572f11[m
+Author: Kd125110 <karol.dabrowski@capgemini.com>
+Date:   Mon Jul 7 07:55:12 2025 +0200
+
+    Implemented authentication method
+
+[33mcommit cf80f0d18042ed7e6c0242cdbe5677de8dd34087[m
+Author: Kd125110 <karol.dabrowski@capgemini.com>
+Date:   Mon Jul 7 07:53:50 2025 +0200
+
+    Modified routing for authentication
+
+[33mcommit 23e9856e6bcd5d6dec6a881feb32b33808041581[m
+Author: Kd125110 <karol.dabrowski@capgemini.com>
+Date:   Mon Jul 7 07:52:28 2025 +0200
+
+    Create user to chec if login is succesfull
+
+[33mcommit eacc05c05238e5b2bf6cb33e047bb33bff6a39bd[m
+Author: Kd125110 <karol.dabrowski@capgemini.com>
+Date:   Mon Jul 7 06:06:10 2025 +0200
+
+    Changed script
+
+[33mcommit 887d9ce3110ac60af54d02de2b90d2977493e4b0[m
+Author: Kd125110 <karol.dabrowski@capgemini.com>
+Date:   Mon Jul 7 06:05:17 2025 +0200
+
+    Changed routing
