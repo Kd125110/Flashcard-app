@@ -4,6 +4,8 @@ import '../output.css'
 
 const RegisterPage: React.FC = () => {
   const navigate = useNavigate();
+  const [name , setName] = React.useState('');
+  const [surname, setSurname] = React.useState('');
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
   const [message, setMessage] = React.useState('');
@@ -37,6 +39,22 @@ const RegisterPage: React.FC = () => {
     <div className="flex items-center justify-center mx-auto bg-transparent">
       <form className="bg-white p-8 rounded shadow min-w-[300px] flex flex-col gap-4" onSubmit={handleLogin}>
         <h2>Register</h2>
+         <input
+          className="p-2 border border-gray-300 rounded text-base"
+          type="name"
+          placeholder="name"
+          value={name}
+          onChange={e => setName(e.target.value)}
+          required
+        />
+         <input
+          className="p-2 border border-gray-300 rounded text-base"
+          type="surname"
+          placeholder="surname"
+          value={surname}
+          onChange={e => setSurname(e.target.value)}
+          required
+        />
         <input
           className="p-2 border border-gray-300 rounded text-base"
           type="email"
