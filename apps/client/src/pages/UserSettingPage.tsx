@@ -55,6 +55,7 @@ const UserSettingPage: React.FC = () => {
           setMessage(data.message || "Nie udało się pobrać danych użytkownika");
         }
       } catch (error) {
+        console.error("Błąd podczas łaczenia", error);
         setMessage("Błąd połączenia z serwerem");
       }
     };
@@ -90,6 +91,7 @@ const UserSettingPage: React.FC = () => {
         setMessage(data.message || "Wystąpił błąd");
       }
     } catch (error) {
+      console.error("Błąd podczas łaczenia", error);
       setMessage("Błąd połączenia z serwerem");
     }
   };
