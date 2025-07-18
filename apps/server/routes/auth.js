@@ -19,7 +19,7 @@ router.post('/register', async (req, res) => {
   const db = req.db;
   await db.read();
 
-  const { email, password } = req.body;
+  const { name,surname,email, password } = req.body;
 
   const existingUser = db.data.users.find((u) => u.email === email);
   if (existingUser) {
@@ -30,6 +30,8 @@ router.post('/register', async (req, res) => {
 
   const newUser = {
     id: db.data.users.length + 1,
+    name,
+    surname,
     email,
     password: hashedPassword,
   };
@@ -82,7 +84,7 @@ router.put('/edit/:id',async (req, res) => {
   await db.read();
 
   const { id } = req.params;
-  const { email, password} = req.body
+  const { name, surname, email, password} = req.body
 
   const index = db.data.users.findIndex(user => user.id === Number(id));
 
@@ -92,6 +94,8 @@ router.put('/edit/:id',async (req, res) => {
 
   db.data.users[index] = {
     ...db.data.users[index],
+    name,
+    surname,
     email,
     password
   };
