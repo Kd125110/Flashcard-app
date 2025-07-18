@@ -76,4 +76,28 @@ router.post('/login', async (req, res) => {
   res.status(200).json({ message: 'Zalogowano', token });
 });
 
+
+router.put('/edit/:id',async (req, res) => {
+  const db = req.db;
+  await db.read();
+
+  const { id } = req.params;
+  const { email, password} = req.body
+
+  const index = db.data.users.findIndex(user => user.id === Number(id));
+
+  if(index === -1 ){
+    return res.status(404).json({message: "Nie odnaleziono użytkownika"});
+  }
+
+  db.data.users[index] = {
+    ...db.data.users[index],
+    email,
+    password
+  };
+
+  await db.write();
+  res.status(200).json({ message: "Użytkownik zaktualizownay", user: db.data.users[index]})
+})
+
 export default router;
