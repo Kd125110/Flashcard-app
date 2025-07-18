@@ -40,7 +40,7 @@ router.post('/register', async (req, res) => {
   await db.write();
 
   const token = jwt.sign(
-    { userId: newUser.id, email: newUser.email },
+    { userId: newUser.id, name:newUser.name, surname:newUser.surname, email: newUser.email },
     process.env.JWT_SECRET,
     { expiresIn: '1h' }
   );
@@ -122,6 +122,26 @@ router.delete('/delete/:id', async (req, res) => {
   res.status(200).json({message: "Użytkownik usunięty", user: deleted})
 
 })
+
+router.get('/user/:id', async (req, res) => {
+  const db = req.db;
+  await db.read();
+
+  const { id } = req.params;
+  const user = db.data.users.find(u => u.id === Number(id));
+
+  if (!user) {
+    return res.status(404).json({ message: "Nie znaleziono użytkownika" });
+  }
+
+  res.status(200).json({
+    id: user.id,
+    name: user.name,
+    surname: user.surname,
+    email: user.email,
+  });
+});
+
 
 
 
