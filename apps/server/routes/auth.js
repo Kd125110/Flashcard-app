@@ -100,4 +100,25 @@ router.put('/edit/:id',async (req, res) => {
   res.status(200).json({ message: "Użytkownik zaktualizownay", user: db.data.users[index]})
 })
 
+router.delete('/delete/:id', async (req, res) => {
+  const db = req.db;
+  await db.read();
+
+  const {id} = req.params;
+
+  const index = db.data.users.findIndex(user => user.id === Number(id));
+
+  if(index === -1){
+    return res.status(404).json({message:"Nie odnaleziono użytkownika"})
+  }
+
+  const deleted = db.data.users.splice(index, 1)[0];
+  await db.write();
+
+  res.status(200).json({message: "Użytkownik usunięty", user: deleted})
+
+})
+
+
+
 export default router;
