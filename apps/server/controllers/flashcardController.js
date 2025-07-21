@@ -75,3 +75,24 @@ export const deleteFlashcard = async (req, res) => {
     const flashcards = db.data.flashcards || [];
     res.status(200).json({flashcards});
   }
+
+export const deleteCategory = async (req,res) => {
+  const db = req.db;
+  await db.read();
+
+  const { category } = req.params;
+
+  const initialLength = db.data.flashcards.length;
+
+  db.data.flashcards = db.data.flashcards.filter(f => f.category !== category);
+
+  const deletedCount = initialLength - db.data.flashcards.length;
+
+  if(deletedCount === 0){
+    return res.status(404).json({ message: "Nie znaleziono fiszek w tej kategori"});
+  }
+  await db.write();
+
+  res.status(200).json({ message: `Usunieto ${deletedCount} fiszek z kategori '${category}'.`})
+
+};

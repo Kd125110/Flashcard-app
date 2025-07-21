@@ -65,10 +65,9 @@ const ShowFlashcardSets: React.FC = () => {
   };
 
   const handleDeleteSet = async (category: string) => {
-    const cardsToDelete = grouped[category];
-    await Promise.all(cardsToDelete.map(card => axios.delete(`http://localhost:3001/flashcards/delete/${card.id}`)));
-    fetchFlashcards();
-  };
+  await axios.delete(`http://localhost:3001/flashcards/delete/category/${category}`);
+  fetchFlashcards();
+};
 
   return (
     <div className="flex flex-col items-center justify-start min-h-screen min-w-screen bg-white p-4">
