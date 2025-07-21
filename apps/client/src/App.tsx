@@ -8,6 +8,7 @@ import ShowFlashcardSets from './pages/ShowFlashcardSets';
 import GuessFlashcard from './pages/GuessFlashcard';
 import EditFlashcardPage from './pages/EditFlashcardPage';
 import UserSettingPage from './pages/UserSettingPage';
+import AddBulkFlashcards from './pages/AddBulkFlashcards';
 
 function App() {
   return (
@@ -39,6 +40,14 @@ function App() {
           element={
             <PrivateRoute>
               <ShowFlashcardSets />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path='/add-bulk-flashcards'
+          element={
+            <PrivateRoute>
+              <AddBulkFlashcards/>
             </PrivateRoute>
           }
         />
