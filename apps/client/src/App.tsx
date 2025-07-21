@@ -8,7 +8,7 @@ import ShowFlashcardSets from './pages/ShowFlashcardSets';
 import GuessFlashcard from './pages/GuessFlashcard';
 import EditFlashcardPage from './pages/EditFlashcardPage';
 import UserSettingPage from './pages/UserSettingPage';
-import AddBulkFlashcards from './pages/AddBulkFlashcards';
+import AddBulkFlashcards from './pages/AddSetsFlashcards';
 
 function App() {
   return (
