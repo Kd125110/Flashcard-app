@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import axios from "axios";
+import { Link } from "react-router-dom";
+
 
 interface Flashcard {
   id: string;
@@ -35,7 +37,7 @@ const ShowFlashcardSets: React.FC = () => {
       .catch((err) => console.error("Błąd podczas pobierania fiszek:", err));
   };
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     setNewCard({ ...newCard, [e.target.name]: e.target.value });
   };
 
@@ -73,22 +75,47 @@ const ShowFlashcardSets: React.FC = () => {
     <div className="flex flex-col items-center justify-start min-h-screen min-w-screen bg-white p-4">
       <Navbar />
       <h1 className="mt-10 text-2xl font-bold mb-4">Zbiory fiszek</h1>
+        <Link to="/add-bulk-flashcards" className="text-blue-600 underline mb-4 block">
+          ➕ Dodaj nowy zestaw fiszek
+        </Link>
       <p className="text-gray-600 mb-6">Tutaj możesz zobaczyć, dodać, edytować lub usunąć fiszki pogrupowane według kategorii.</p>
 
       {/* Form */}
+      <form>
       <div className="mb-6 p-4 border rounded shadow bg-gray-50 w-full max-w-3xl">
         <h2 className="text-lg font-semibold mb-2">{editingCardId ? "Edytuj fiszkę" : "Dodaj nową fiszkę"}</h2>
         <div className="grid grid-cols-2 gap-2">
           <input name="question" placeholder="Pytanie" value={newCard.question || ""} onChange={handleInputChange} className="border p-2 rounded" />
           <input name="answer" placeholder="Odpowiedź" value={newCard.answer || ""} onChange={handleInputChange} className="border p-2 rounded" />
           <input name="category" placeholder="Kategoria" value={newCard.category || ""} onChange={handleInputChange} className="border p-2 rounded" />
-          <input name="sourceLang" placeholder="Język źródłowy" value={newCard.sourceLang || ""} onChange={handleInputChange} className="border p-2 rounded" />
-          <input name="targetLang" placeholder="Język docelowy" value={newCard.targetLang || ""} onChange={handleInputChange} className="border p-2 rounded" />
+          <select
+            name="sourceLang"
+            value={newCard.sourceLang || ""}
+            onChange={handleInputChange}
+            className="border p-2 rounded"
+          >
+            <option value="">Wybierz język źródłowy</option>
+            <option value="pl">Polski</option>
+            <option value="en">Angielski</option>
+            <option value="de">Niemiecki</option>
+          </select>
+          <select
+            name="targetLang"
+            value={newCard.sourceLang || ""}
+            onChange={handleInputChange}
+            className="border p-2 rounded"
+          >
+            <option value="">Wybierz język źródłowy</option>
+            <option value="pl">Polski</option>
+            <option value="en">Angielski</option>
+            <option value="de">Niemiecki</option>
+          </select>
         </div>
         <button onClick={handleAddOrUpdate} className="mt-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
           {editingCardId ? "Zapisz zmiany" : "Dodaj fiszkę"}
         </button>
       </div>
+      </form>
 
       {/* Flashcard Sets */}
       <div className="w-full max-w-3xl">
