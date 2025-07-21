@@ -1,3 +1,5 @@
+import crypto from "crypto"; 
+
 export const addFlashcard = async (req, res) => {
   const db = req.db;
   await db.read();
@@ -96,3 +98,23 @@ export const deleteCategory = async (req,res) => {
   res.status(200).json({ message: `Usunieto ${deletedCount} fiszek z kategori '${category}'.`})
 
 };
+
+export const addBulkFlashcards = async (req, res) => {
+  const db = req.db;
+  await db.read();
+
+  const newCards = req.body;
+
+  if(!Array.isArray(newCards)){
+    return res.status(400).json({ message: "Oczekiwano tablicy fiszek. "});
+  }
+
+  const withIds = newCards.map(card => ({
+    ...card,
+    id: crypto.randomUUID()
+  }))
+  db.data.flashcards.push(...withIds);
+  await db.write()
+
+  res.status(201).json({ message: `Dodano ${withIds.length} fiszek.`});
+}
