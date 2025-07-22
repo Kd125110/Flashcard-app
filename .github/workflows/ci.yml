@@ -39,10 +39,12 @@ jobs:
 
       - name: Install ESLint and plugins
         run: |
-          npm install --save-dev eslint@8.38.0
-          npm install --save-dev @typescript-eslint/parser@8.38.0 @typescript-eslint/eslint-plugin@8.38.0
-          npm install --save-dev eslint-plugin-react eslint-plugin-react-hooks eslint-plugin-react-refresh
-          
+         npm install --save-dev eslint@^9.0.0
+         npm install --save-dev @eslint/js@^9.0.0
+         npm install --save-dev @typescript-eslint/parser@^7.0.0 @typescript-eslint/eslint-plugin@^7.0.0
+         npm install --save-dev eslint-plugin-react@^7.33.0 eslint-plugin-react-hooks eslint-plugin-react-refresh
+         npm install --save-dev globals
+         
       - name: Build all apps
         run: npx nx run-many --target=build --all
 
