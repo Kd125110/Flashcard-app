@@ -113,7 +113,7 @@ const GuessFlashcard: React.FC = () => {
           </div>
         ))}
       </div>
-      <div className='mt-2 text-sm'>
+      <div className='mt-2 text-sm mb-4'>
           ✅ Poprawne: {correctCount} | ❌ Błędne: {incorrectCount}
       </div>
       {currentCard && (
