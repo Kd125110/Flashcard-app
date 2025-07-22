@@ -99,6 +99,17 @@ export const deleteCategory = async (req,res) => {
 
 };
 
+export const getCategories = async (req, res) => {
+  const db = req.db;
+  await db.read();
+
+  const flashcards = db.data.flashcards;
+
+  const categories = [...new Set(flashcards.map(f => f.category))];
+
+  res.status(200).json({categories})
+}
+
 export const addBulkFlashcards = async (req, res) => {
   const db = req.db;
   await db.read();

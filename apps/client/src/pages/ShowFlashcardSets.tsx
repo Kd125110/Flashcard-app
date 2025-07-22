@@ -17,10 +17,18 @@ const ShowFlashcardSets: React.FC = () => {
   const [grouped, setGrouped] = useState<Record<string, Flashcard[]>>({});
   const [newCard, setNewCard] = useState<Partial<Flashcard>>({});
   const [editingCardId, setEditingCardId] = useState<string | null>(null);
+  const [categories, setCategories] = useState<string[]>([]);
 
   useEffect(() => {
     fetchFlashcards();
   }, []);
+
+  useEffect(() =>{
+    fetch('http://localhost:3001/flashcards/categories')
+      .then(res => res.json())
+      .then(data => setCategories(data.categories))
+      .catch(err => console.error('Błąd podzcas pobierania kategorii: ', err));
+  }, []);  
 
   const fetchFlashcards = () => {
     axios.get("http://localhost:3001/flashcards/")
@@ -81,40 +89,83 @@ const ShowFlashcardSets: React.FC = () => {
       <p className="text-gray-600 mb-6">Tutaj możesz zobaczyć, dodać, edytować lub usunąć fiszki pogrupowane według kategorii.</p>
 
       {/* Form */}
-      <form>
-      <div className="mb-6 p-4 border rounded shadow bg-gray-50 w-full max-w-3xl">
-        <h2 className="text-lg font-semibold mb-2">{editingCardId ? "Edytuj fiszkę" : "Dodaj nową fiszkę"}</h2>
-        <div className="grid grid-cols-2 gap-2">
-          <input name="question" placeholder="Pytanie" value={newCard.question || ""} onChange={handleInputChange} className="border p-2 rounded" />
-          <input name="answer" placeholder="Odpowiedź" value={newCard.answer || ""} onChange={handleInputChange} className="border p-2 rounded" />
-          <input name="category" placeholder="Kategoria" value={newCard.category || ""} onChange={handleInputChange} className="border p-2 rounded" />
-          <select
-            name="sourceLang"
-            value={newCard.sourceLang || ""}
-            onChange={handleInputChange}
-            className="border p-2 rounded"
-          >
-            <option value="">Wybierz język źródłowy</option>
-            <option value="pl">Polski</option>
-            <option value="en">Angielski</option>
-            <option value="de">Niemiecki</option>
-          </select>
-          <select
-            name="targetLang"
-            value={newCard.sourceLang || ""}
-            onChange={handleInputChange}
-            className="border p-2 rounded"
-          >
-            <option value="">Wybierz język źródłowy</option>
-            <option value="pl">Polski</option>
-            <option value="en">Angielski</option>
-            <option value="de">Niemiecki</option>
-          </select>
+      <form onSubmit={handleAddOrUpdate} className="space-y-6 mb-4">
+        <fieldset className="border border-gray-300 p-4 rounded-md">
+          <legend className="font-smeibold text-lg mb-2">
+            {editingCardId ? "Edytuj fiszke" : "Dodaj fiszkę"}
+          </legend>
+          <div className="mb-4">
+            <label className="block mb-1 font-medium">Pytanie</label>
+            <input
+              type="text"
+              name="question"
+              placeholder="Pytanie"
+              value={newCard.question || ""}
+              onChange={handleInputChange}
+              className="w-full border p-2 rounded"
+            />
+          </div>
+          <div className="mb-4">
+            <label className="block mb-1 font-medium">Odpowiedź</label>
+            <input
+              type="text"
+              name="answer"
+              placeholder="Odpowiedź"
+              value={newCard.answer || ""}
+              onChange={handleInputChange}
+              className="w-full border p-2 rounded"
+            />
+          </div>
+          <div className="mb-4">
+            <label className="block mb-1 font-medium">Kategoria</label>
+            <select
+              name="category"
+              value={newCard.category || ""}
+              onChange={handleInputChange}
+              className="w-full border p-2 rounded"
+              >
+                <option value="">Wybierz kategorie</option>
+                {categories.map((cat) => (
+                  <option key={cat} value={cat}>{cat}</option>
+                ))}
+            </select>
+          </div>
+          <div className="mb-4">
+            <label className="block mb-1 font-medium">Język źródłowy</label>
+            <select
+              name="sourceLang"
+              value={newCard.sourceLang || ""}
+              onChange={handleInputChange}
+              className="w-full border p-2 rounded"
+              >
+              <option value="">Wybierz język źródłowy</option>
+              <option value="pl">Polski</option>
+              <option value="en">Angielski</option>
+              <option value="de">Niemiecki</option>
+            </select>
+          </div>
+             <div className="mb-4">
+            <label className="block mb-1 font-medium">Język docelowy</label>
+            <select
+              name="sourceLang"
+              value={newCard.sourceLang || ""}
+              onChange={handleInputChange}
+              className="w-full border p-2 rounded"
+              >
+              <option value="">Wybierz język źródłowy</option>
+              <option value="pl">Polski</option>
+              <option value="en">Angielski</option>
+              <option value="de">Niemiecki</option>
+            </select>
+          </div>
+        </fieldset>
+        <div className="mt-6">
+          <button
+            type="submit"
+            className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+              {editingCardId ? "Zapisz zmiany" : "Dodaj fiszkę"}   
+          </button>
         </div>
-        <button onClick={handleAddOrUpdate} className="mt-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
-          {editingCardId ? "Zapisz zmiany" : "Dodaj fiszkę"}
-        </button>
-      </div>
       </form>
 
       {/* Flashcard Sets */}
