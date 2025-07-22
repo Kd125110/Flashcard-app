@@ -9,6 +9,7 @@ interface Flashcard {
   category: string;
   sourceLang: string;
   targetLang: string;
+  box?: number;
 }
 
 const GuessFlashcard: React.FC = () => {
@@ -21,7 +22,7 @@ const GuessFlashcard: React.FC = () => {
   const [blurred, setBlurred] = useState(true);
   const [correctCount, setCorrectCount] = useState(0);
   const [incorrectCount, setIncorectCount] = useState(0);
-  
+
 
   // Fetch flashcards from backend
   useEffect(() => {
@@ -48,24 +49,47 @@ const GuessFlashcard: React.FC = () => {
 
   const checkAnswer = () => {
     if (!currentCard) return;
-    if (userGuess.trim().toLowerCase() === currentCard.answer.toLowerCase()) {
-      setFeedback('✅ Nice one!');
-      setBlurred(false); 
+    
+    const isCorrect = userGuess.trim().toLocaleLowerCase() === currentCard.answer.toLocaleLowerCase();
 
+    if (isCorrect) {
+      setCorrectCount(prev => prev + 1);
+    } else {
+      setIncorectCount(prev => prev + 1);
+    }
+
+    const updatedFlashcards = flashcards.map(card => {
+      if(card.id === currentCard.id){
+        const newBox = isCorrect ? Math.min((card.box || 1) + 1,5 ):1;
+        return { ...card, box: newBox}
+      }
+      return card;
+    })
+
+    setFlashcards(updatedFlashcards);
+    setFeedback(isCorrect ? '✅ Nice one!' : '❌ Try again!');
+    setBlurred(!isCorrect);
+
+    if(isCorrect){
       setTimeout(() => {
-        const cards = flashcards.filter(card => card.category === selectedCategory);
-        const nextCard = (cardIndex + 1) % cards.length;
-        setCardIndex(nextCard);
-        setCurrentCard(cards[nextCard]);
+        const cards = updatedFlashcards
+        .filter(card => card.category === selectedCategory)
+        .sort((a, b) => (a.box || 1) - (b.box || 1));
+
+        const nextCard = cards[(cardIndex + 1) % cards.length];
+        setCardIndex((cardIndex + 1) % cards.length);
+        setCurrentCard(nextCard);
         setUserGuess('');
         setFeedback('');
-        setBlurred(true); 
+        setBlurred(true);
       }, 2000)
-    } else {
-      setFeedback('❌ Try again!');
     }
   };
 
+  const boxStats = [1, 2, 3, 4, 5].map(level => ({
+    level,
+    count: flashcards.filter(card => card.box === level).length,
+  }));
   return (
     <div className="flex flex-col items-center justify-start min-h-screen bg-white p-4">
       <Navbar />
@@ -82,6 +106,16 @@ const GuessFlashcard: React.FC = () => {
         ))}
       </select>
 
+      <div className='flex gap-2 mt-4'>
+        {boxStats.map(stat => (
+          <div key={stat.level} className='text-sm'>
+              📦 {stat.level}: {stat.count}
+          </div>
+        ))}
+      </div>
+      <div className='mt-2 text-sm'>
+          ✅ Poprawne: {correctCount} | ❌ Błędne: {incorrectCount}
+      </div>
       {currentCard && (
        <Flashcard
         question={currentCard.question}
