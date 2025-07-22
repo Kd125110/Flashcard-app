@@ -136,7 +136,7 @@ return (
       </form>
 
       {/* Podgląd ostatnio dodanej fiszki */}
-      <div className="w-full lg:w-1/2 flex justify-center items-start">
+      <div className="w-full lg:w-1/2 flex justify-center items-start mt-20 ml-5">
         {flashcards.length > 0 && (
           <Flashcard
             question={flashcards[flashcards.length - 1].question}
