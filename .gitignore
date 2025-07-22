@@ -6,7 +6,7 @@ node_modules
 
 .env
 
-apps/server/db.json
+apps/src/server/db.json
 
 db.json
 

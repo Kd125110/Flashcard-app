@@ -18,12 +18,28 @@
   ],
   "flashcards": [
     {
-      "id": "1752783611185",
-      "question": "Man",
-      "answer": "Mężczyzna",
-      "category": "Ludzie",
-      "sourceLang": "English",
-      "targetLang": "Polish"
+      "id": "85c0bada-9283-4ffc-a713-999ad53129d2",
+      "question": "Cat",
+      "answer": "Kot",
+      "category": "Zwierzeta",
+      "sourceLang": "en",
+      "targetLang": "pl"
+    },
+    {
+      "id": "6c2e675c-4394-47c4-9e00-5eb441b11fac",
+      "question": "Dog",
+      "answer": "Pies",
+      "category": "Zwierzęta",
+      "sourceLang": "en",
+      "targetLang": "pl"
+    },
+    {
+      "id": "1753171088444",
+      "question": "Kot",
+      "answer": "Cat",
+      "category": "Zwierzęta",
+      "sourceLang": "Polish",
+      "targetLang": "English"
     }
   ]
 }
