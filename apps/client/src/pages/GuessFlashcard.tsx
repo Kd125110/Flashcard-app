@@ -19,6 +19,9 @@ const GuessFlashcard: React.FC = () => {
   const [feedback, setFeedback] = useState('');
   const [cardIndex, setCardIndex] = useState(0);
   const [blurred, setBlurred] = useState(true);
+  const [correctCount, setCorrectCount] = useState(0);
+  const [incorrectCount, setIncorectCount] = useState(0);
+  
 
   // Fetch flashcards from backend
   useEffect(() => {
