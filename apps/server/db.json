@@ -40,6 +40,62 @@
       "category": "Zwierzęta",
       "sourceLang": "Polish",
       "targetLang": "English"
+    },
+    {
+      "id": "33c0683d-0748-455e-bb43-174dfd4a4b4e",
+      "question": "Cat",
+      "answer": "Kot",
+      "category": "Zwierzęta",
+      "sourceLang": "pl",
+      "targetLang": "en"
+    },
+    {
+      "id": "0152edf4-462e-4e9d-a6bd-09106858dc53",
+      "question": "Pies",
+      "answer": "Dog",
+      "category": "Zwierzęta",
+      "sourceLang": "pl",
+      "targetLang": "en"
+    },
+    {
+      "id": "40482b4f-fea6-49cb-b040-63e49a5c8224",
+      "question": "Koń",
+      "answer": "Horse",
+      "category": "Zwierzęta",
+      "sourceLang": "pl",
+      "targetLang": "en"
+    },
+    {
+      "id": "bd9450bb-4a95-4339-8916-ba00ce4bd834",
+      "question": "Krab",
+      "answer": "Crab",
+      "category": "Zwierzęta",
+      "sourceLang": "pl",
+      "targetLang": "en"
+    },
+    {
+      "id": "181392fa-e34d-4385-b23a-174e786a8360",
+      "question": "Katze",
+      "answer": "Cat",
+      "category": "Animals",
+      "sourceLang": "de",
+      "targetLang": "en"
+    },
+    {
+      "id": "f59e4526-3378-4584-93a5-0e0fa215382c",
+      "question": "hund",
+      "answer": "Dog",
+      "category": "Animals",
+      "sourceLang": "de",
+      "targetLang": "en"
+    },
+    {
+      "id": "2378b744-a0d6-4913-933d-d8a9c897370c",
+      "question": "pferde",
+      "answer": "horse",
+      "category": "Animals",
+      "sourceLang": "de",
+      "targetLang": "en"
     }
   ]
 }

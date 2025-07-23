@@ -144,11 +144,11 @@ const ShowFlashcardSets: React.FC = () => {
               <option value="de">Niemiecki</option>
             </select>
           </div>
-             <div className="mb-4">
+            <div className="mb-4">
             <label className="block mb-1 font-medium">Język docelowy</label>
             <select
-              name="sourceLang"
-              value={newCard.sourceLang || ""}
+              name="targetLang"
+              value={newCard.targetLang || ""}
               onChange={handleInputChange}
               className="w-full border p-2 rounded"
               >
