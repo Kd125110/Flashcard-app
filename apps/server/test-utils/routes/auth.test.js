@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach, afterEach, jest } from '@jest/globals';
-import express from 'express';
+import express, { response } from 'express';
 import request from 'supertest';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
@@ -148,6 +148,61 @@ describe('Auth Routes', () => {
       expect(response.body).toHaveProperty('message', 'User already exists');
       expect(mockDb.data.users).toHaveLength(1);
       expect(mockDb.write).not.toHaveBeenCalled();
+    });
+  });
+
+  describe('POST /login', () => {
+    it('should login succesfully with valid credentials', async () => {
+      const loginData = {
+        email : 'test@example.com',
+        password: 'password123'
+      };
+
+      const response = await request(app)
+        .post('/auth/login')
+        .send(loginData);
+
+        expect(response.status).toBe(200);
+        expect(response.body).toHaveProperty('token', 'test-token');
+        expect(response.body).toHaveProperty('message', 'Zalogowano');
+        expect(bcrypt.compare).toHaveBeenLastCalledWith('password123', 'hashedPassword123');
+        expect(jwt.sign).toHaveBeenCalledWith(
+          { userId: 1, email: 'test@example.com'},
+          process.env.JWT_SECRET,
+          { expiresIn :'1h' }
+        );
+    });
+    it('should retour 401 if user does not exist', async () => {
+      const loginData = {
+        email: 'nonexidten@example.com',
+        password: 'password123'
+      };
+
+      const response = await request(app)
+        .post('/auth/login')
+        .send(loginData);
+
+
+      expect(response.status).toBe(401);
+      expect(response.body).toHaveProperty('message', 'Błędne dane');
+      expect(bcrypt.compare).not.toHaveBeenCalled();
+    });
+
+    it('should return 401 if password is incorrect', async () => {
+      bcrypt.compare.mockResolvedValue(false);
+
+      const loginData = {
+        email: 'test@example.com',
+        password: 'wrongpassword'
+      };
+
+      const response = await request(app)
+        .post('/auth/login')
+        .send(loginData);
+
+      expect(response.status).toBe(401);
+      expect(response.body).toHaveProperty('message', 'Błędne dane');
+      expect(bcrypt.compare).toHaveBeenCalledWith('wrongpassword', 'hashedPassword123');
     });
   });
 });
