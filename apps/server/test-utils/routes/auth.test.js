@@ -270,4 +270,26 @@ describe('Auth Routes', () => {
       expect(mockDb.write).not.toHaveBeenCalled();
     })
   })
+
+  describe('GER /user/:id', () => {
+    it('shoudl return users by ID succesfully', async() => {
+
+      const response = await request(app).get('/auth/user/1');
+
+      expect(response.status).toBe(200);
+      expect(response.body).toEqual({
+        id: 1,
+        name: 'Test',
+        surname: 'User',
+        email: 'test@example.com'
+      });
+    });
+    it('should return 404 if user does not exits', async() => {
+
+      const response = await request(app).get('/auth/user/999');
+
+      expect(response.status).toBe(404);
+      expect(response.body).toHaveProperty('message', 'Nie znaleziono użytkownika');
+    })
+  });
 });
