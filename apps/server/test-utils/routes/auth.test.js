@@ -244,4 +244,30 @@ describe('Auth Routes', () => {
       expect(mockDb.write).not.toHaveBeenCalled();
     });
   });
+
+  describe('DELETE /delete/:id', () => {
+    it('should delete user succesfully', async () => {
+      const response = await request(app).delete('/auth/delete/1');
+
+      expect(response.status).toBe(200);
+      expect(response.body).toHaveProperty('message', 'Użytkownik usunięty');
+      expect(response.body.user).toMatchObject({
+        id: 1,
+        name: 'Test',
+        surname: 'User',
+        email: 'test@example.com'
+      });
+      expect(mockDb.data.users).toHaveLength(0);
+      expect(mockDb.write).toHaveBeenCalled();
+    });
+
+    it('should return 404 if the user does not exist', async () => {
+      const response = await request(app).delete('/auth/delete/999');
+
+      expect(response.status).toBe(404);
+      expect(response.body).toHaveProperty('message', 'Nie odnaleziono użytkownika');
+      expect(mockDb.data.users).toHaveLength(1);
+      expect(mockDb.write).not.toHaveBeenCalled();
+    })
+  })
 });
