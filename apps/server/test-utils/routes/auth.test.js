@@ -205,4 +205,43 @@ describe('Auth Routes', () => {
       expect(bcrypt.compare).toHaveBeenCalledWith('wrongpassword', 'hashedPassword123');
     });
   });
+  describe('PUT /edit/:id', () => {
+    it('should updated user succesfully', async () =>{
+      const updatedData = {
+        name: 'Updated',
+        surname: 'User',
+        email: 'updated@example.com',
+        password: 'newpassword'
+      };
+
+      const response = await request(app)
+        .put('/auth/edit/1')
+        .send(updatedData);
+
+      expect(response.status).toBe(200);
+      expect(response.body).toHaveProperty('message', 'Użytkownik zaktualizowany');
+      expect(response.body.user).toMatchObject({
+        id: 1,
+        ...updatedData
+      });
+      expect(mockDb.write).toHaveBeenCalled();
+    });
+
+    it('should return 404 if the user does not exist', async () => {
+      const updatedData = {
+        name: 'Updated',
+        surname: 'User',
+        email: 'updated@example.com',
+        password: 'newpassword'
+      };
+
+      const response = await request(app)
+        .put('/auth/edit/999')
+        .send(updatedData);
+
+      expect(response.status).toBe(404);
+      expect(response.body).toHaveProperty('message', 'Nie odnaleziono użytkownika');
+      expect(mockDb.write).not.toHaveBeenCalled();
+    });
+  });
 });
