@@ -193,7 +193,31 @@ describe('Flashcard Controller', () => {
                 expect(response.body).toHaveProperty('message', 'Fiszka nie została znaleziona.');
                 expect(mockDb.data.flashcards).toHaveLength(3);
                 expect(mockDb.write).not.toHaveBeenCalled()
+            });
+        });
+
+        describe('getFlashcard', () => {
+            it('should return all flashcards', async () =>{
+                const response = await request(app)
+                    .get('/flashcards')
+                
+                expect(response.status).toBe(200);
+                expect(response.body).toHaveProperty('flashcards');
+                expect(response.body.flashcards).toHaveLength(3);
+                expect(response.body.flashcards).toEqual(mockDb.data.flashcards);
+            });
+
+            it('should return empty array if no flashcards exist', async () =>{
+                mockDb.data.flashcards = [];
+
+                const response = await request(app)
+                    .get('/flashcards');
+
+                expect(response.status).toBe(200);
+                expect(response.body).toHaveProperty('flashcards');
+                expect(response.body.flashcards).toHaveLength(0);
+                expect(response.body.flashcards).toEqual([]);
             })
-        })
+        });
     // Add more test blocks for other functions
 });
