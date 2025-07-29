@@ -101,7 +101,7 @@ router.put('/edit/:id',async (req, res) => {
   };
 
   await db.write();
-  res.status(200).json({ message: "Użytkownik zaktualizownay", user: db.data.users[index]})
+  res.status(200).json({ message: "Użytkownik zaktualizowany", user: db.data.users[index]})
 })
 
 router.delete('/delete/:id', async (req, res) => {

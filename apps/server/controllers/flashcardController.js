@@ -61,7 +61,7 @@ export const deleteFlashcard = async (req, res) => {
 
     const index = db.data.flashcards.findIndex(f => f.id === id);
     if(index === -1){
-      return res.status(404).json({message: "Fiszka nie została znelziona."});
+      return res.status(404).json({message: "Fiszka nie została znaleziona."});
     }
 
     const deleted = db.data.flashcards.splice(index, 1)[0];

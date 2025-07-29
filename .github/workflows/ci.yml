@@ -41,6 +41,9 @@ jobs:
 
       - name: Lint all apps
         run: npx nx run-many --target=lint --all
+      
+      - name: Test apps
+        run: npm run test:server
 
       - name: Delete merged branch
         if: github.event_name == 'pull_request' && github.event.pull_request.merged == true
