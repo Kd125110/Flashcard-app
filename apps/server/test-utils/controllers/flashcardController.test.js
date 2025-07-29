@@ -163,5 +163,37 @@ describe('Flashcard Controller', () => {
                 expect(mockDb.write).not.toHaveBeenCalled();
             })
         })
+
+        describe('deleteFlashcard', () => {
+            it('should delete and existing flashcard succesfully', async () => {
+                const response = await request(app)
+                    .delete('/flashcards/existing-id-2');
+                
+                expect(response.status).toBe(200);
+                expect(response.body).toHaveProperty('message', 'Fiszka usunieta.');
+                expect(response.body.flashcard).toEqual({
+                        id: 'existing-id-2',
+                        question: 'What is React?',
+                        answer: 'A JavaScript library for building user interfaces',
+                        category: 'Programming',
+                        sourceLang: 'en',
+                        targetLang: 'en'
+                });
+                
+                expect(mockDb.data.flashcards).toHaveLength(2);
+                expect(mockDb.data.flashcards.find(f => f.id === 'existing-id-2')).toBeUndefined();
+                expect(mockDb.write).toHaveBeenCalled();
+            });
+            
+            it('should return 404 if flashcard does not exist', async () =>{
+                const response = await request(app)
+                    .delete('/flashcards/non-existent-id');
+                
+                expect(response.status).toBe(404);
+                expect(response.body).toHaveProperty('message', 'Fiszka nie została znaleziona.');
+                expect(mockDb.data.flashcards).toHaveLength(3);
+                expect(mockDb.write).not.toHaveBeenCalled()
+            })
+        })
     // Add more test blocks for other functions
 });
