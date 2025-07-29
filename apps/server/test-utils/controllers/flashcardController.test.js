@@ -242,5 +242,29 @@ describe('Flashcard Controller', () => {
                 expect(mockDb.write).not.toHaveBeenCalled();
             });
         });
+
+        describe('getCategories', () => {
+            it('should return all unique categories', async () => {
+                const response = await request(app)
+                    .get('/categories');
+                
+                expect(response.status).toBe(200);
+                expect(response.body).toHaveProperty('categories');
+                expect(response.body.categories).toHaveLength(2);
+                expect(response.body.categories).toContain('Programming');
+                expect(response.body.categories).toContain('Polish');
+            });
+            it('should return empty array if no flashcards exists', async() => {
+                mockDb.data.flashcards = [];
+
+                const response = await request(app)
+                    .get('/categories')
+                
+                expect(response.status).toBe(200);
+                expect(response.body).toHaveProperty('categories');
+                expect(response.body.categories).toHaveLength(0);
+                expect(response.body.categories).toEqual([]);
+            })
+        });
     // Add more test blocks for other functions
 });
