@@ -217,7 +217,30 @@ describe('Flashcard Controller', () => {
                 expect(response.body).toHaveProperty('flashcards');
                 expect(response.body.flashcards).toHaveLength(0);
                 expect(response.body.flashcards).toEqual([]);
-            })
+            });
+        });
+        
+        describe('deleteCategory', () => {
+            it('should delete all flashcard in a category', async () => {
+                const response = await request(app)
+                    .delete('/categories/Programming');
+                
+                expect(response.status).toBe(200);
+                expect(response.body).toHaveProperty('message', "Usunieto 2 fiszek z kategori 'Programming'.");
+                expect(mockDb.data.flashcards).toHaveLength(1);
+                expect(mockDb.data.flashcards[0].category).toBe('Polish');
+                expect(mockDb.write).toHaveBeenCalled();
+            });
+
+            it('should return 4-4 if category does not exist', async () => {
+                const response = await request(app)
+                    .delete('/categories/NonExistentCategory');
+
+                expect(response.status).toBe(404);
+                expect(response.body).toHaveProperty('message', 'Nie znaleziono fiszek w tej kategori');
+                expect(mockDb.data.flashcards).toHaveLength(3);
+                expect(mockDb.write).not.toHaveBeenCalled();
+            });
         });
     // Add more test blocks for other functions
 });
