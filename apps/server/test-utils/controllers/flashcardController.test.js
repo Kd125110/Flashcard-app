@@ -1,7 +1,7 @@
 import { describe, it, expect, beforeEach, afterEach, jest } from "@jest/globals";
 import express from 'express';
 import request from "supertest";
-import * as flashcardController from '../../../controllers/flashcardController.js';
+import * as flashcardController from '../../controllers/flashcardController.js'
 
 jest.mock('crypto', () => ({
     randomUUID: jest.fn().mockReturnValue('mock-uuid-123')
@@ -98,7 +98,70 @@ describe('Flashcard Controller', () => {
             expect(mockDb.data.flashcards).toHaveLength(4); // Changed from flashcard to flashcards
             expect(mockDb.write).toHaveBeenCalled();
         });
-    });
 
+        it('should return 400 if requred fields are missing', async () => {
+            const incompleteFlashcard = {
+                question: 'Incomplete question',
+                //Missing
+                sourceLang: 'en',
+                targetLang: 'pl'
+            }
+
+            const response = await request(app)
+                .post('/flashcards')
+                .send(incompleteFlashcard);
+            
+            expect(response.status).toBe(400);
+            expect(response.body).toHaveProperty('message', 'Wszystkie pola są wymagane.');
+            expect(mockDb.data.flashcards).toHaveLength(3);
+            expect(mockDb.write).not.toHaveBeenCalled();
+        })
+    });
+        describe('editFlashcard', () => {
+            it('should edit and existing flashcard successfully', async () => {
+                const updatedFlashcard ={
+                    question: 'Updated Question',
+                    answer: 'Updated Answer',
+                    category: 'Updated Category',
+                    sourceLang: 'en',
+                    targetLang: 'en'
+                }
+
+                const response = await request(app)
+                    .put('/flashcards/existing-id-1')
+                    .send(updatedFlashcard)
+
+                expect(response.status).toBe(200);
+                expect(response.body).toHaveProperty('message', 'Fiszka zaktualizowana.');
+                expect(response.body.flashcard).toEqual({
+                    id: 'existing-id-1',
+                    ...updatedFlashcard
+                });
+                expect(mockDb.data.flashcards[0]).toEqual({
+                    id: 'existing-id-1',
+                    ...updatedFlashcard
+                })
+                expect(mockDb.write).toHaveBeenCalled();
+            })
+
+            it('should return 404 if flashcard does not exist', async () => {
+                
+                const updatedFlashcard ={
+                    question: 'Updated Question',
+                    answer: 'Updated Answer',
+                    category: 'Updated Category',
+                    sourceLang: 'en',
+                    targetLang: 'en'
+                }
+
+                const response = await request(app)
+                    .put('/flashcards/non-existent-id')
+                    .send(updatedFlashcard);
+
+                expect(response.status).toBe(404);
+                expect(response.body).toHaveProperty('message', 'Fiszka nie została znaleziona.')
+                expect(mockDb.write).not.toHaveBeenCalled();
+            })
+        })
     // Add more test blocks for other functions
 });
