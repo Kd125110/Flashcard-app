@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/13</span>
+                <span class='fraction'>13/13</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/1</span>
+                <span class='fraction'>1/1</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/13</span>
+                <span class='fraction'>13/13</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -146,20 +146,20 @@
 <a name='L81'></a><a href='#L81'>81</a>
 <a name='L82'></a><a href='#L82'>82</a>
 <a name='L83'></a><a href='#L83'>83</a>
-<a name='L84'></a><a href='#L84'>84</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<a name='L84'></a><a href='#L84'>84</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">19x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -228,21 +228,21 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"><span class="cstat-no" title="statement not covered" >import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';</span>
-<span class="cstat-no" title="statement not covered" >import PrivateRoute from './components/PrivateRoute';</span>
-<span class="cstat-no" title="statement not covered" >import LoginPage from './pages/LoginPage';</span>
-<span class="cstat-no" title="statement not covered" >import DashboardPage from './pages/DashboardPage';</span>
-<span class="cstat-no" title="statement not covered" >import AddFlashcardPage from './pages/AddFlashcardPage';</span>
-<span class="cstat-no" title="statement not covered" >import RegisterPage from './pages/RegisterPage';</span>
-<span class="cstat-no" title="statement not covered" >import ShowFlashcardSets from './pages/ShowFlashcardSets';</span>
-<span class="cstat-no" title="statement not covered" >import GuessFlashcard from './pages/GuessFlashcard';</span>
-<span class="cstat-no" title="statement not covered" >import EditFlashcardPage from './pages/EditFlashcardPage';</span>
-<span class="cstat-no" title="statement not covered" >import UserSettingPage from './pages/UserSettingPage';</span>
-<span class="cstat-no" title="statement not covered" >import AddBulkFlashcards from './pages/AddSetsFlashcards';</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import PrivateRoute from './components/PrivateRoute';
+import LoginPage from './pages/LoginPage';
+import DashboardPage from './pages/DashboardPage';
+import AddFlashcardPage from './pages/AddFlashcardPage';
+import RegisterPage from './pages/RegisterPage';
+import ShowFlashcardSets from './pages/ShowFlashcardSets';
+import GuessFlashcard from './pages/GuessFlashcard';
+import EditFlashcardPage from './pages/EditFlashcardPage';
+import UserSettingPage from './pages/UserSettingPage';
+import AddBulkFlashcards from './pages/AddSetsFlashcards';
 &nbsp;
-function <span class="fstat-no" title="function not covered" >App(</span>) {
-<span class="cstat-no" title="statement not covered" >  return (</span>
+function App() {
+  return (
     &lt;Router&gt;
       &lt;Routes&gt;
         &lt;Route path="/" element={&lt;Navigate to="/login" /&gt;} /&gt;
@@ -311,7 +311,7 @@ function <span class="fstat-no" title="function not covered" >App(</span>) {
   );
 }
 &nbsp;
-<span class="cstat-no" title="statement not covered" >export default App;</span>
+export default App;
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
@@ -319,7 +319,7 @@ function <span class="fstat-no" title="function not covered" >App(</span>) {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-08-04T15:57:52.558Z
+                at 2025-08-04T17:08:03.687Z
             </div>
         <script src="../prettify.js"></script>
         <script>

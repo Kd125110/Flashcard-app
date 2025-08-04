@@ -88,7 +88,9 @@ const ShowFlashcardSets: React.FC = () => {
         setFlashcards(response.data.flashcards);
         
         // Extract categories if the categories endpoint failed
-        const uniqueCategories = [...new Set(response.data.flashcards.map((card: Flashcard) => card.category))];
+        const uniqueCategories = [...new Set(response.data.flashcards
+         .filter((card: any): card is Flashcard => typeof card === 'object' && card !== null && 'category' in card)
+         .map((card: Flashcard) => card.category))] as string[];
         if (categories.length === 0) {
           setCategories(uniqueCategories);
         }
