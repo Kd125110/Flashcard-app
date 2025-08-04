@@ -31,5 +31,14 @@
       "password": "$2b$10$U6exQD2.H6l7AVnPo1W9o.wDJywj9L1XResxU.baDG9biNv6sQs2i"
     }
   ],
-  "flashcards": []
+  "flashcards": [
+    {
+      "question": "1",
+      "answer": "1",
+      "category": "1",
+      "sourceLang": "pl",
+      "targetLang": "en",
+      "id": "63f22c9a-3909-4020-bc01-a3056a94bf01"
+    }
+  ]
 }

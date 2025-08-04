@@ -3,7 +3,6 @@ import Navbar from "../components/Navbar";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
-
 interface Flashcard {
   id: string;
   question: string;
@@ -14,6 +13,7 @@ interface Flashcard {
 }
 
 const ShowFlashcardSets: React.FC = () => {
+  const [flashcards, setFlashcards] = useState<Flashcard[]>([]); // Add this state
   const [grouped, setGrouped] = useState<Record<string, Flashcard[]>>({});
   const [newCard, setNewCard] = useState<Partial<Flashcard>>({});
   const [editingCardId, setEditingCardId] = useState<string | null>(null);
@@ -23,40 +23,115 @@ const ShowFlashcardSets: React.FC = () => {
     fetchFlashcards();
   }, []);
 
-  useEffect(() =>{
-    fetch('http://localhost:3001/flashcards/categories')
-      .then(res => res.json())
-      .then(data => setCategories(data.categories))
-      .catch(err => console.error('Błąd podzcas pobierania kategorii: ', err));
-  }, []);  
+  // Group flashcards by category whenever flashcards change
+  useEffect(() => {
+    const groupedByCategory = flashcards.reduce((acc, card) => {
+      const category = card.category || 'Uncategorized';
+      if (!acc[category]) {
+        acc[category] = [];
+      }
+      acc[category].push(card);
+      return acc;
+    }, {} as Record<string, Flashcard[]>);
+    
+    setGrouped(groupedByCategory);
+  }, [flashcards]);
 
-  const fetchFlashcards = () => {
-    axios.get("http://localhost:3001/flashcards/")
-      .then((res) => {
-        const data = Array.isArray(res.data) ? res.data : res.data.flashcards;
-        const groupedByCategory = data.reduce((acc: Record<string, Flashcard[]>, card: Flashcard) => {
-          const categoryKey = card.category || "Bez kategorii";
-          if (!acc[categoryKey]) acc[categoryKey] = [];
-          acc[categoryKey].push(card);
-          return acc;
-        }, {});
-        setGrouped(groupedByCategory);
+  useEffect(() => {
+    const token = localStorage.getItem('authToken');
+    
+    if (!token) {
+      console.error('No authentication token found');
+      return;
+    }
+    
+    fetch('http://localhost:3001/flashcards/categories', {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    })
+      .then(res => {
+        if (!res.ok) {
+          throw new Error(`HTTP error! Status: ${res.status}`);
+        }
+        return res.json();
       })
-      .catch((err) => console.error("Błąd podczas pobierania fiszek:", err));
+      .then(data => {
+        console.log('Categories data:', data);
+        setCategories(data || []);
+      })
+      .catch(err => {
+        console.error('Błąd podczas pobierania kategorii: ', err);
+        // Fallback: If categories endpoint fails, try to get categories from flashcards
+        fetchFlashcards();
+      });
+  }, []);
+
+  const fetchFlashcards = async () => {
+    try {
+      const token = localStorage.getItem('authToken');
+      
+      if (!token) {
+        console.error('No authentication token found');
+        return;
+      }
+      
+      const response = await axios.get('http://localhost:3001/flashcards/', {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+      
+      console.log('Flashcards response:', response.data);
+      
+      if (response.data.flashcards) {
+        setFlashcards(response.data.flashcards);
+        
+        // Extract categories if the categories endpoint failed
+        const uniqueCategories = [...new Set(response.data.flashcards.map((card: Flashcard) => card.category))];
+        if (categories.length === 0) {
+          setCategories(uniqueCategories);
+        }
+      } else {
+        setFlashcards([]);
+      }
+    } catch (error) {
+      console.error('Błąd podczas pobierania fiszek:', error);
+    }
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     setNewCard({ ...newCard, [e.target.name]: e.target.value });
   };
 
-  const handleAddOrUpdate = async () => {
+  const handleAddOrUpdate = async (e: React.FormEvent) => {
+    e.preventDefault(); // Prevent form submission
+    
     try {
+      const token = localStorage.getItem('authToken');
+      
+      if (!token) {
+        console.error('No authentication token found');
+        return;
+      }
+      
       if (editingCardId) {
-        await axios.put(`http://localhost:3001/flashcards/edit/${editingCardId}`, newCard);
+        // Update existing flashcard
+        await axios.put(`http://localhost:3001/flashcards/${editingCardId}`, newCard, {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        });
         setEditingCardId(null);
       } else {
-        await axios.post("http://localhost:3001/flashcards/add", newCard);
+        // Add new flashcard
+        await axios.post("http://localhost:3001/flashcards/add", newCard, {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        });
       }
+      
       setNewCard({});
       fetchFlashcards();
     } catch (error) {
@@ -70,14 +145,46 @@ const ShowFlashcardSets: React.FC = () => {
   };
 
   const handleDelete = async (id: string) => {
-    await axios.delete(`http://localhost:3001/flashcards/delete/${id}`);
-    fetchFlashcards();
+    try {
+      const token = localStorage.getItem('authToken');
+      
+      if (!token) {
+        console.error('No authentication token found');
+        return;
+      }
+      
+      await axios.delete(`http://localhost:3001/flashcards/${id}`, {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+      
+      fetchFlashcards();
+    } catch (error) {
+      console.error("Błąd podczas usuwania fiszki:", error);
+    }
   };
 
   const handleDeleteSet = async (category: string) => {
-  await axios.delete(`http://localhost:3001/flashcards/delete/category/${category}`);
-  fetchFlashcards();
-};
+    try {
+      const token = localStorage.getItem('authToken');
+      
+      if (!token) {
+        console.error('No authentication token found');
+        return;
+      }
+      
+      await axios.delete(`http://localhost:3001/flashcards/category/${category}`, {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+      
+      fetchFlashcards();
+    } catch (error) {
+      console.error("Błąd podczas usuwania zestawu fiszek:", error);
+    }
+  };
 
   return (
     <div className="flex flex-col items-center justify-start min-h-screen min-w-screen bg-white p-4">
@@ -103,6 +210,7 @@ const ShowFlashcardSets: React.FC = () => {
               value={newCard.question || ""}
               onChange={handleInputChange}
               className="w-full border p-2 rounded"
+              required
             />
           </div>
           <div className="mb-4">
@@ -114,6 +222,7 @@ const ShowFlashcardSets: React.FC = () => {
               value={newCard.answer || ""}
               onChange={handleInputChange}
               className="w-full border p-2 rounded"
+              required
             />
           </div>
           <div className="mb-4">
@@ -123,12 +232,24 @@ const ShowFlashcardSets: React.FC = () => {
               value={newCard.category || ""}
               onChange={handleInputChange}
               className="w-full border p-2 rounded"
+              required
               >
                 <option value="">Wybierz kategorie</option>
                 {categories.map((cat) => (
                   <option key={cat} value={cat}>{cat}</option>
                 ))}
+                <option value="new">+ Nowa kategoria</option>
             </select>
+            {newCard.category === 'new' && (
+              <input
+                type="text"
+                name="category"
+                placeholder="Wpisz nazwę nowej kategorii"
+                onChange={handleInputChange}
+                className="w-full border p-2 rounded mt-2"
+                required
+              />
+            )}
           </div>
           <div className="mb-4">
             <label className="block mb-1 font-medium">Język źródłowy</label>
@@ -137,6 +258,7 @@ const ShowFlashcardSets: React.FC = () => {
               value={newCard.sourceLang || ""}
               onChange={handleInputChange}
               className="w-full border p-2 rounded"
+              required
               >
               <option value="">Wybierz język źródłowy</option>
               <option value="pl">Polski</option>
@@ -151,8 +273,9 @@ const ShowFlashcardSets: React.FC = () => {
               value={newCard.targetLang || ""}
               onChange={handleInputChange}
               className="w-full border p-2 rounded"
+              required
               >
-              <option value="">Wybierz język źródłowy</option>
+              <option value="">Wybierz język docelowy</option>
               <option value="pl">Polski</option>
               <option value="en">Angielski</option>
               <option value="de">Niemiecki</option>
@@ -165,6 +288,17 @@ const ShowFlashcardSets: React.FC = () => {
             className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
               {editingCardId ? "Zapisz zmiany" : "Dodaj fiszkę"}   
           </button>
+          {editingCardId && (
+            <button
+              type="button"
+              onClick={() => {
+                setEditingCardId(null);
+                setNewCard({});
+              }}
+              className="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600 ml-2">
+                Anuluj edycję
+            </button>
+          )}
         </div>
       </form>
 
@@ -177,14 +311,38 @@ const ShowFlashcardSets: React.FC = () => {
             <div key={category} className="mb-6 border rounded p-4 shadow">
               <div className="flex justify-between items-center mb-2">
                 <h2 className="text-xl font-semibold">{category}</h2>
-                <button onClick={() => handleDeleteSet(category)} className="text-red-600 text-sm">Usuń cały zestaw</button>
+                <button 
+                  onClick={() => handleDeleteSet(category)} 
+                  className="text-red-600 text-sm hover:underline"
+                >
+                  Usuń cały zestaw
+                </button>
               </div>
               <ul className="list-disc list-inside">
                 {cards.map((card) => (
-                  <li key={card.id}>
-                    <strong>{card.question}</strong> → {card.answer} ({card.sourceLang} → {card.targetLang})
-                    <button onClick={() => handleEdit(card)} className="text-blue-500 ml-2">Edytuj</button>
-                    <button onClick={() => handleDelete(card.id)} className="text-red-500 ml-2">Usuń</button>
+                  <li key={card.id} className="mb-2">
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between">
+                      <div>
+                        <strong>{card.question}</strong> → {card.answer} 
+                        <span className="text-gray-500 text-sm ml-1">
+                          ({card.sourceLang} → {card.targetLang})
+                        </span>
+                      </div>
+                      <div className="mt-1 sm:mt-0">
+                        <button 
+                          onClick={() => handleEdit(card)} 
+                          className="text-blue-500 hover:underline mr-2"
+                        >
+                          Edytuj
+                        </button>
+                        <button 
+                          onClick={() => handleDelete(card.id)} 
+                          className="text-red-500 hover:underline"
+                        >
+                          Usuń
+                        </button>
+                      </div>
+                    </div>
                   </li>
                 ))}
               </ul>

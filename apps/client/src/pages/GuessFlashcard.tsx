@@ -25,12 +25,31 @@ const GuessFlashcard: React.FC = () => {
 
 
   // Fetch flashcards from backend
-  useEffect(() => {
-    fetch('http://localhost:3001/flashcards')
-      .then(res => res.json())
-      .then(data => setFlashcards(data.flashcards))
-      .catch(err => console.error('Error fetching flashcards:', err));
-  }, []);
+useEffect(() => {
+  const token = localStorage.getItem('authToken');
+  
+  if (!token) {
+    console.error('No authentication token found');
+    return;
+  }
+  
+  fetch('http://localhost:3001/flashcards', {
+    headers: {
+      'Authorization': `Bearer ${token}`
+    }
+  })
+    .then(res => {
+      if (!res.ok) {
+        throw new Error(`HTTP error! Status: ${res.status}`);
+      }
+      return res.json();
+    })
+    .then(data => {
+      console.log('Flashcards data:', data);
+      setFlashcards(data.flashcards || []);
+    })
+    .catch(err => console.error('Error fetching flashcards:', err));
+}, []);
 
   // Extract unique categories from flashcards
   const categories = Array.from(new Set(flashcards.map(card => card.category)));

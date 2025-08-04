@@ -11,7 +11,10 @@ const LoginPage: React.FC = () => {
 const handleLogin = async (e: React.FormEvent) => {
   e.preventDefault();
   setMessage('');
+  console.log('Attempting login with:', { email, password });
+  
   try {
+    console.log('Sending request to:', 'http://localhost:3001/api/auth/login');
     const response = await fetch('http://localhost:3001/api/auth/login', {
       method: 'POST',
       headers: {
@@ -20,19 +23,25 @@ const handleLogin = async (e: React.FormEvent) => {
       body: JSON.stringify({ email, password }),
     });
 
+    console.log('Response status:', response.status);
     const data = await response.json();
+    console.log('Response data:', data);
 
     if (response.ok) {
-      localStorage.setItem("authToken", data.token); // ⬅️ Zapis tokenu
+      console.log('Login successful, saving token');
+      localStorage.setItem("authToken", data.token);
       setMessage('Login successful!');
       navigate('/dashboard');
     } else {
+      console.log('Login failed:', data.message);
       setMessage(data.message || 'Login failed. Please try again.');
     }
-  } catch {
+  } catch (error) {
+    console.error('Login error:', error);
     setMessage('An error occurred while logging in. Please try again later.');
   }
 };
+
 
 
   return (

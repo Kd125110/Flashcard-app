@@ -14,6 +14,10 @@ router.get('/protected', authenticateToken, (req, res) => {
   res.json({ message: 'This is a protected route', user: req.user });
 });
 
+router.get('/test', (req, res) => {
+  res.json({ message: "Auth router is working" });
+});
+
 // 📝 Register route
 router.post('/register', async (req, res) => {
   const db = req.db;
