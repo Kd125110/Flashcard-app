@@ -26,7 +26,7 @@
   },
   "scripts": {
     "start:all": "nx run-many --target=serve --projects=client,server --parallel --verbose",
-    "test:server": "node --experimental-vm-modules ./node_modules/jest/bin/jest.js --config ./apps/server/jest.config.js"
+    "test:server": "node --experimental-vm-modules ./node_modules/jest/bin/jest.js --config ./apps/server/jest.config.js --coverage"
   },
   "dependencies": {
     "axios": "^1.10.0",

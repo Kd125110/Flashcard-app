@@ -79,32 +79,40 @@ router.post('/login', async (req, res) => {
 });
 
 
-router.put('/edit/:id',async (req, res) => {
+router.put('/edit/:id',authenticateToken, async (req, res) => {
   const db = req.db;
   await db.read();
 
   const { id } = req.params;
-  const { name, surname, email, password} = req.body
+  const { name, surname, email, password } = req.body;
 
   const index = db.data.users.findIndex(user => user.id === Number(id));
 
-  if(index === -1 ){
-    return res.status(404).json({message: "Nie odnaleziono użytkownika"});
+  if (index === -1) {
+    return res.status(404).json({ message: "Nie odnaleziono użytkownika" });
   }
 
-  db.data.users[index] = {
-    ...db.data.users[index],
-    name,
-    surname,
-    email,
-    password
-  };
+  // Hash the password if it's provided
+  let updatedUser = { ...db.data.users[index], name, surname, email };
+  
+  if (password) {
+    const hashedPassword = await bcrypt.hash(password, 10);
+    updatedUser.password = hashedPassword;
+  }
 
+  db.data.users[index] = updatedUser;
   await db.write();
-  res.status(200).json({ message: "Użytkownik zaktualizowany", user: db.data.users[index]})
-})
+  
+  // Don't return the password in the response
+  const { password: _, ...userWithoutPassword } = db.data.users[index];
+  
+  res.status(200).json({ 
+    message: "Użytkownik zaktualizowany", 
+    user: userWithoutPassword
+  });
+});
 
-router.delete('/delete/:id', async (req, res) => {
+router.delete('/delete/:id',authenticateToken, async (req, res) => {
   const db = req.db;
   await db.read();
 
