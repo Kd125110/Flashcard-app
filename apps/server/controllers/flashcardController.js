@@ -46,7 +46,7 @@ export const updateFlashcardBox = async (req, res) => {
   }
 
   // Sprawdzenie właściciela fiszki
-  if (db.data.flashcards[index].userId && db.data.flashcards[index].userId !== req.user.id) {
+  if (db.data.flashcards[index].userId && db.data.flashcards[index].userId !== req.user.userId) {
     return res.status(403).json({ message: "Brak uprawnień do edycji tej fiszki." });
   }
 
@@ -69,7 +69,7 @@ export const editFlashcard = async (req, res) => {
   }
 
   // Check if the flashcard belongs to the user
-  if (db.data.flashcards[index].userId && db.data.flashcards[index].userId !== req.user.id) {
+  if (db.data.flashcards[index].userId && db.data.flashcards[index].userId !== req.user.userId) {
     return res.status(403).json({ message: "Brak uprawnień do edycji tej fiszki." });
   }
 
@@ -147,7 +147,7 @@ export const deleteCategory = async (req,res) => {
   await db.read();
 
   const { category } = req.params;
-  const userId = req.user.id;
+  const userId = req.user.userId;
 
   const initialLength = db.data.flashcards.length;
   
@@ -170,7 +170,7 @@ export const getCategories = async (req, res) => {
   const db = req.db;
   await db.read();
 
-  const userId = req.user.id;
+  const userId = req.user.userId;
   
   // Only get categories for the user's flashcards
   const userFlashcards = db.data.flashcards.filter(f => !f.userId || f.userId === userId);
@@ -193,7 +193,7 @@ export const addBulkFlashcards = async (req, res) => {
   const withIds = newCards.map(card => ({
     ...card,
     id: crypto.randomUUID(),
-    userId: req.user.id // Add user ID from auth middleware
+    userId: req.user.userId // Add user ID from auth middleware
   }));
   
   db.data.flashcards.push(...withIds);
@@ -201,3 +201,39 @@ export const addBulkFlashcards = async (req, res) => {
 
   res.status(201).json({ message: `Dodano ${withIds.length} fiszek.`, flashcards: withIds });
 };
+
+export const getFlashcardStats = async(req, res) => {
+  const db = req.db;
+  await db.read();
+
+  const userId = req.user.userId;
+  const userFlashcards = db.data.flashcards.filter(f => f.userId === userId);
+
+  const stats = {};
+
+  userFlashcards.forEach(card => {
+    const category = card.category;
+    if(!stats[category]){
+      stats[category] = {
+        count: 0,
+        totalBox: 0,
+        sourceLangs: new Set(),
+        targetLangs: new Set()
+      };
+    }
+    stats[category].count += 1;
+    stats[category].totalBox += card.box;
+    stats[category].sourceLangs.add(card.sourceLang);
+    stats[category].targetLangs.add(card.targetLang);
+  });
+
+  const formattedStats = Object.entries(stats).map(([category, data]) =>({
+    category,
+    numberOfFlashcards: data.count,
+    averageBoxLevel: parseFloat((data.totalBox / data.count).toFixed(2)),
+    sourceLanguages: Array.from(data.sourceLangs),
+    targetLanguages: Array.from(data.targetLangs)
+  }))
+
+  res.status(200).json({stats: formattedStats})
+}

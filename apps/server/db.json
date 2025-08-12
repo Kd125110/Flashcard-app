@@ -34,6 +34,18 @@
       "id": 7,
       "email": "Kuba@example.com",
       "password": "$2b$10$FGnG53X9EJwF..K0FSaJEeHeZK2kNcXu6FrIGEnm4rvZmIxefMOre"
+    },
+    {
+      "id": 8,
+      "email": "jan.kowalski@example.com",
+      "password": "$2b$10$l7jXD.9vP0dZTMC.qkdtDeHJZYuBQcJRqANtPhSBPDtw5lg.CNFdO"
+    },
+    {
+      "id": 9,
+      "name": "Karol",
+      "surname": "Dabrowski",
+      "email": "123@gmail.com",
+      "password": "$2b$10$uLL2dJppSJHR0Z4oEDo/N.GUuw8ql.YG916j3tXoz6L9e4emaai7m"
     }
   ],
   "flashcards": [
@@ -44,24 +56,6 @@
       "category": "1",
       "sourceLang": "Polish",
       "targetLang": "English",
-      "box": 1
-    },
-    {
-      "id": "1246f79a-f4ae-491d-8449-1953f37cc9f7",
-      "question": "Haus",
-      "answer": "dom",
-      "category": "Podstawowe",
-      "sourceLang": "German",
-      "targetLang": "Polish",
-      "box": 1
-    },
-    {
-      "id": "5471390d-37fc-47b8-b9a1-614d5caa07b3",
-      "question": "Haus",
-      "answer": "dom",
-      "category": "Podstawowe",
-      "sourceLang": "German",
-      "targetLang": "Polish",
       "box": 1
     },
     {
@@ -78,16 +72,6 @@
       "question": "Haus",
       "answer": "dom",
       "category": "Podstawowe",
-      "sourceLang": "German",
-      "targetLang": "Polish",
-      "box": 1,
-      "userId": 2
-    },
-    {
-      "id": "45cc7ce7-cb31-4a06-930d-4067dc8f8b55",
-      "question": "23",
-      "answer": "23",
-      "category": "23",
       "sourceLang": "German",
       "targetLang": "Polish",
       "box": 1,

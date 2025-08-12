@@ -7,7 +7,8 @@ const router = express.Router();
 router.use(authenticateToken);
 // Define routes
 router.post('/add',authenticateToken,  flashcardController.addFlashcard);
-router.get('/categories', flashcardController.getCategories); // Move this before /:id
+router.get('/categories', flashcardController.getCategories);
+router.get('/stats', authenticateToken,flashcardController.getFlashcardStats); // Move this before /:id
 router.get('/', flashcardController.getFlashcards);
 router.get('/:id', flashcardController.getFlashcardById);
 router.put('/:id', flashcardController.editFlashcard);

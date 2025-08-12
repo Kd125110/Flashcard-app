@@ -57,9 +57,9 @@ const Navbar: React.FC = () => {
 
         {/* Desktop Menu */}
         <div className="hidden md:flex gap-4 items-center text-[1.1rem]">
-          <button onClick={() => handleNavigate("/add-flashcard")} className="hover:text-gray-300">
+          {/* <button onClick={() => handleNavigate("/add-flashcard")} className="hover:text-gray-300">
             Dodaj fiszkę
-          </button>
+          </button> */}
           <button onClick={() => handleNavigate("/show-flashcards-sets")} className="hover:text-gray-300">
             Zobacz zbiory fiszek
           </button>
@@ -78,7 +78,7 @@ const Navbar: React.FC = () => {
       {/* Mobile Menu */}
       {menuOpen && (
         <div className="md:hidden flex flex-col gap-2 px-4 pb-4 text-[1.1rem] bg-[#1976d2] z-[1001]">
-          <button onClick={() => handleNavigate("/add-flashcard")}>Dodaj fiszkę</button>
+          {/* <button onClick={() => handleNavigate("/add-flashcard")}>Dodaj fiszkę</button> */}
           <button onClick={() => handleNavigate("/show-flashcards-sets")}>Zobacz zbiory fiszek</button>
           <button onClick={() => handleNavigate("/guess")}>Zgadnij fiszke</button>
           <button onClick={() => handleNavigate("/usersetting")}>Konto</button>
