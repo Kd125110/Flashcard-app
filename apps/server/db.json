@@ -8,7 +8,9 @@
     {
       "id": 2,
       "email": "Karol@gmail.com",
-      "password": "$2b$10$6le381eBohBO2F6oYX6aHeXKK.1lETx7i6hHEaSRZn5ual5bdrFvu"
+      "password": "$2b$10$6le381eBohBO2F6oYX6aHeXKK.1lETx7i6hHEaSRZn5ual5bdrFvu",
+      "wrongAnswers": 1,
+      "correctAnswers": 1
     },
     {
       "id": 3,
@@ -46,6 +48,15 @@
       "surname": "Dabrowski",
       "email": "123@gmail.com",
       "password": "$2b$10$uLL2dJppSJHR0Z4oEDo/N.GUuw8ql.YG916j3tXoz6L9e4emaai7m"
+    },
+    {
+      "id": 10,
+      "name": "Karol",
+      "surname": "Dabrowski",
+      "email": "1234@gmail.com",
+      "password": "$2b$10$BBXmQMA3RzgawO75m3MkieS6Dbbj6ux34vQDB6nwEo8AuEXKzQMJW",
+      "correctAnswers": 4,
+      "wrongAnswers": 4
     }
   ],
   "flashcards": [
@@ -74,8 +85,18 @@
       "category": "Podstawowe",
       "sourceLang": "German",
       "targetLang": "Polish",
-      "box": 1,
+      "box": 3,
       "userId": 2
+    },
+    {
+      "question": "Dom",
+      "answer": "House",
+      "category": "Dom",
+      "sourceLang": "pl",
+      "targetLang": "en",
+      "id": "cb3ce201-f13e-4e92-8538-9446a0758e85",
+      "userId": 10,
+      "box": 3
     }
   ]
 }

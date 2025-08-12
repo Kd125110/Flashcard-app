@@ -208,12 +208,13 @@ export const getFlashcardStats = async(req, res) => {
 
   const userId = req.user.userId;
   const userFlashcards = db.data.flashcards.filter(f => f.userId === userId);
+  const user = db.data.users.find(u => u.id === userId);
 
   const stats = {};
 
   userFlashcards.forEach(card => {
     const category = card.category;
-    if(!stats[category]){
+    if (!stats[category]) {
       stats[category] = {
         count: 0,
         totalBox: 0,
@@ -227,13 +228,23 @@ export const getFlashcardStats = async(req, res) => {
     stats[category].targetLangs.add(card.targetLang);
   });
 
-  const formattedStats = Object.entries(stats).map(([category, data]) =>({
+  const formattedStats = Object.entries(stats).map(([category, data]) => ({
     category,
     numberOfFlashcards: data.count,
     averageBoxLevel: parseFloat((data.totalBox / data.count).toFixed(2)),
     sourceLanguages: Array.from(data.sourceLangs),
     targetLanguages: Array.from(data.targetLangs)
-  }))
+  }));
 
-  res.status(200).json({stats: formattedStats})
+  const totalAnswers = (user.correctAnswers || 0) + (user.wrongAnswers || 0);
+  const correctPercentage = totalAnswers > 0
+    ? parseFloat(((user.correctAnswers / totalAnswers) * 100).toFixed(2))
+    : null;
+
+  res.status(200).json({
+    stats: formattedStats,
+    correctAnswers: user.correctAnswers || 0,
+    wrongAnswers: user.wrongAnswers || 0,
+    correctPercentage
+  });
 }

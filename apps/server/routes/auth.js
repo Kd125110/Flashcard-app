@@ -38,6 +38,8 @@ router.post('/register', async (req, res) => {
     surname,
     email,
     password: hashedPassword,
+    correctAnswers: 0,
+    wrongAnswers: 0
   };
 
   db.data.users.push(newUser);
@@ -153,6 +155,67 @@ router.get('/user/:id', async (req, res) => {
     email: user.email,
   });
 });
+
+router.post('/answers', authenticateToken, async (req, res) => {
+  try {
+    const db = req.db;
+    await db.read();
+
+    const userId = req.user.userId;
+    const { isCorrect } = req.body;
+
+    const user = db.data.users.find(u => u.id === userId);
+    if (!user) {
+      return res.status(404).json({ message: "Nie znaleziono użytkownika" });
+    }
+
+  
+
+
+    if (isCorrect) {
+      user.correctAnswers = (user.correctAnswers || 0) + 1;
+    } else {
+      user.wrongAnswers = (user.wrongAnswers || 0) + 1;
+    }
+
+    await db.write();
+
+    res.status(200).json({
+      message: "Odpowiedź zapisana",
+      correctAnswers: user.correctAnswers,
+      wrongAnswers: user.wrongAnswers
+    });
+  } catch (error) {
+    res.status(500).json({ message: "Błąd serwera", error: error.message });
+  }
+});
+
+
+// 📊 Get user stats
+router.get('/user-stats/:id', authenticateToken, async (req, res) => {
+  const db = req.db;
+  await db.read();
+
+  const { id } = req.params;
+  const user = db.data.users.find(u => u.id === Number(id));
+
+  if (!user) {
+    return res.status(404).json({ message: "Nie znaleziono użytkownika" });
+  }
+
+  const correct = user.correctAnswers || 0;
+  const wrong = user.wrongAnswers || 0;
+  const total = correct + wrong;
+  const percentage = total > 0 ? ((correct / total) * 100).toFixed(2) : "0.00";
+
+  res.status(200).json({
+    correctAnswers: correct,
+    wrongAnswers: wrong,
+    percentageCorrect: `${percentage}%`
+  });
+});
+
+
 
 
 
