@@ -17,12 +17,43 @@ export const addFlashcard = async (req, res) => {
     category,
     sourceLang,
     targetLang,
-    userId: req.user.id, // Add user ID from auth middleware
+    box: 1,
+    userId: req.user.userId, // Add user ID from auth middleware
   };
+  
+  console.log("req.user:", req.user);
 
   db.data.flashcards.push(newFlashcard);
   await db.write();
   res.status(201).json(newFlashcard);
+  console.log("Użytkownik:", req.user);
+};
+
+export const updateFlashcardBox = async (req, res) => {
+  const db = req.db;
+  await db.read();
+
+  const { id } = req.params;
+  const { box } = req.body;
+
+  if (typeof box !== 'number' || box < 1 || box > 5) {
+    return res.status(400).json({ message: "Nieprawidłowy poziom boxa. Musi być liczbą od 1 do 5." });
+  }
+
+  const index = db.data.flashcards.findIndex(f => f.id === id);
+  if (index === -1) {
+    return res.status(404).json({ message: "Fiszka nie została znaleziona." });
+  }
+
+  // Sprawdzenie właściciela fiszki
+  if (db.data.flashcards[index].userId && db.data.flashcards[index].userId !== req.user.id) {
+    return res.status(403).json({ message: "Brak uprawnień do edycji tej fiszki." });
+  }
+
+  db.data.flashcards[index].box = box;
+  await db.write();
+
+  res.status(200).json({ message: `Zaktualizowano poziom boxa na ${box}.`, flashcard: db.data.flashcards[index] });
 };
 
 export const editFlashcard = async (req, res) => {
@@ -90,7 +121,7 @@ export const getFlashcardById = async (req, res) => {
   }
   
   // Check if the flashcard belongs to the user
-  if (flashcard.userId && flashcard.userId !== req.user.id) {
+  if (flashcard.userId && flashcard.userId !== req.user.userId)  {
     return res.status(403).json({ message: "Brak uprawnień do wyświetlenia tej fiszki." });
   }
   
@@ -103,7 +134,7 @@ export const getFlashcards = async (req, res) => {
   await db.read();
 
   // Get the user ID from the authenticated request
-  const userId = req.user?.id;
+  const userId = req.user?.userId;
 
   // Filter flashcards to only show those belonging to the current user
   const flashcards = db.data.flashcards.filter(f => f.userId === userId) || [];

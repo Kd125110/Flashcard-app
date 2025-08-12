@@ -29,16 +29,69 @@
       "id": 6,
       "email": "test1754314127983@example.com",
       "password": "$2b$10$U6exQD2.H6l7AVnPo1W9o.wDJywj9L1XResxU.baDG9biNv6sQs2i"
+    },
+    {
+      "id": 7,
+      "email": "Kuba@example.com",
+      "password": "$2b$10$FGnG53X9EJwF..K0FSaJEeHeZK2kNcXu6FrIGEnm4rvZmIxefMOre"
     }
   ],
   "flashcards": [
     {
+      "id": "59093832-2ce3-411e-8b32-ac2adf7f5ea2",
       "question": "1",
       "answer": "1",
       "category": "1",
-      "sourceLang": "pl",
-      "targetLang": "en",
-      "id": "63f22c9a-3909-4020-bc01-a3056a94bf01"
+      "sourceLang": "Polish",
+      "targetLang": "English",
+      "box": 1
+    },
+    {
+      "id": "1246f79a-f4ae-491d-8449-1953f37cc9f7",
+      "question": "Haus",
+      "answer": "dom",
+      "category": "Podstawowe",
+      "sourceLang": "German",
+      "targetLang": "Polish",
+      "box": 1
+    },
+    {
+      "id": "5471390d-37fc-47b8-b9a1-614d5caa07b3",
+      "question": "Haus",
+      "answer": "dom",
+      "category": "Podstawowe",
+      "sourceLang": "German",
+      "targetLang": "Polish",
+      "box": 1
+    },
+    {
+      "id": "673bcab1-f84e-4b04-aecd-ca6749bf9147",
+      "question": "11",
+      "answer": "11",
+      "category": "11",
+      "sourceLang": "Polish",
+      "targetLang": "English",
+      "box": 1
+    },
+    {
+      "id": "0ce2e9aa-7da5-405a-9bff-b561e81eaee6",
+      "question": "Haus",
+      "answer": "dom",
+      "category": "Podstawowe",
+      "sourceLang": "German",
+      "targetLang": "Polish",
+      "box": 1,
+      "userId": 2
+    },
+    {
+      "id": "45cc7ce7-cb31-4a06-930d-4067dc8f8b55",
+      "question": "23",
+      "answer": "23",
+      "category": "23",
+      "sourceLang": "German",
+      "targetLang": "Polish",
+      "box": 1,
+      "userId": 2
     }
   ]
 }

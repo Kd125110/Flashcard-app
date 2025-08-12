@@ -19,7 +19,7 @@ const config: Config = {
     '**/?(*.)+(spec|test).ts?(x)'
   ],
   setupFilesAfterEnv: ['<rootDir>/src/test-utils/setup.ts'],
-  coverageDirectory: '../../coverage/apps/client',
+  coverageDirectory: '<rootDir>',
   collectCoverageFrom: [
     'src/**/*.{ts,tsx}',
     '!src/**/*.d.ts',

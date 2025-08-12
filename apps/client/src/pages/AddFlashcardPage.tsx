@@ -29,7 +29,9 @@ const AddFlashcardPage: React.FC = () => {
     ["Polish", "English"],
     ["English", "Polish"],
     ["Polish", "German"],
-    ["German", "Polish"]
+    ["German", "Polish"],
+    ["German", "English"],
+    ["English", "German"]
   ];
 
   const isValidPair = allowedPairs.some(
@@ -154,7 +156,7 @@ return (
       </form>
 
       {/* Podgląd ostatnio dodanej fiszki */}
-      <div className="w-full lg:w-1/2 flex justify-center items-start mt-20 ml-5">
+      <div className="w-full lg:w-1/2 flex justify-center items-start mt-10">
         {flashcards.length > 0 && (
           <Flashcard
             question={flashcards[flashcards.length - 1].question}

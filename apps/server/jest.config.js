@@ -1,31 +1,18 @@
 /** @type {import('jest').Config} */
 export default {
-  displayName: 'client',
-  testEnvironment: 'jsdom', // Use jsdom for browser environment
-  transform: {
-    // Transform TypeScript files
-    '^.+\\.(ts|tsx)$': ['ts-jest', {
-      tsconfig: '<rootDir>/tsconfig.json',
-      isolatedModules: true
-    }]
-  },
-  moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
+  displayName: 'server',
+  testEnvironment: 'node',
+  transform: {}, // Empty transform means no transformations (using Node.js native ESM)
+  moduleFileExtensions: ['js', 'json', 'node'],
   moduleNameMapper: {
-    // Handle CSS imports (if you use CSS modules)
-    '\\.(css|less|scss|sass)$': 'identity-obj-proxy',
-    // Handle image imports
-    '\\.(jpg|jpeg|png|gif|webp|svg)$': '<rootDir>/test-utils/fileMock.js',
-    // Handle module path aliases if you have any
-    '^(\\.{1,2}/.*)\\.js$': '$1'
+    '^(\\.{1,2}/.*)\\.js$': '$1' // This pattern might be causing issues
   },
-  testMatch: [
-    '**/__tests__/**/*.ts?(x)', 
-    '**/?(*.)+(spec|test).ts?(x)'
-  ],
+  testMatch: ['**/__tests__/**/*.js', '**/?(*.)+(spec|test).js'],
   rootDir: '.',
   testPathIgnorePatterns: ['/node_modules/'],
   verbose: true,
   setupFilesAfterEnv: ['./test-utils/setup.js'],
-  modulePaths: ['<rootDir>'],
-  moduleDirectories: ['node_modules', 'apps/client', 'src']
+  // Add these new settings:
+  modulePaths: ['<rootDir>'], // Add this to help with module resolution
+  moduleDirectories: ['node_modules', 'apps/server'] // Add this to help with module resolution
 };

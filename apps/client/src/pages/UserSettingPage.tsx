@@ -9,9 +9,11 @@ interface DecodedToken {
   email: string;
   exp: number;
   iat: number;
+
+
 }
 
-const getUserIdFromToken = () => {
+export const getUserIdFromToken = () => {
   const token = localStorage.getItem("authToken");
   if (!token) return null;
 
@@ -104,6 +106,7 @@ const UserSettingPage: React.FC = () => {
         <form
           className="bg-gray-100 shadow-md rounded px-8 pt-6 mb-4"
           onSubmit={handleSubmit}
+          role="form"
         >
           <div className="mb-4">
             <label className="block text-gray-700 text-sm font-bold">Email:</label>
