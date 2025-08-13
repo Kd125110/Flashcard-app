@@ -136,7 +136,6 @@ router.delete('/delete/:id',authenticateToken, async (req, res) => {
   res.status(200).json({message: "Użytkownik usunięty", user: deleted})
 
 })
-
 router.get('/user/:id', async (req, res) => {
   const db = req.db;
   await db.read();

@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeEach, afterEach, jest, afterAll} from "@jest/globals";
+import { describe, it, expect, beforeEach, afterEach, jest, afterAll } from "@jest/globals";
 import express from 'express';
 import request from "supertest";
 import crypto from 'crypto';
@@ -27,7 +27,7 @@ describe('Flashcard Controller', () => {
 
         // Mock user for authentication
         mockUser = {
-            id: 'user-123',
+            userId: 'user-123', // Changed from id to userId to match controller expectations
             username: 'testuser',
             email: 'test@example.com'
         };
@@ -43,6 +43,7 @@ describe('Flashcard Controller', () => {
                         category: 'Programming',
                         sourceLang: 'en',
                         targetLang: 'en',
+                        box: 2,
                         userId: 'user-123'
                     },
                     {
@@ -52,6 +53,7 @@ describe('Flashcard Controller', () => {
                         category: 'Programming',
                         sourceLang: 'en',
                         targetLang: 'en',
+                        box: 3,
                         userId: 'user-123'
                     },
                     {
@@ -61,7 +63,17 @@ describe('Flashcard Controller', () => {
                         category: 'Polish',
                         sourceLang: 'pl',
                         targetLang: 'en',
+                        box: 1,
                         userId: 'user-123'
+                    }
+                ],
+                users: [
+                    {
+                        id: 'user-123',
+                        username: 'testuser',
+                        email: 'test@example.com',
+                        correctAnswers: 15,
+                        wrongAnswers: 5
                     }
                 ]
             },
@@ -76,15 +88,22 @@ describe('Flashcard Controller', () => {
             next();
         });
 
+        // Add error handling middleware
+        app.use((err, req, res, next) => {
+            res.status(500).json({ message: err.message || 'An error occurred' });
+        });
+
         // Setup routes with the controller functions
         app.post('/flashcards', flashcardController.addFlashcard);
+        app.put('/flashcards/:id/box', flashcardController.updateFlashcardBox);
         app.put('/flashcards/:id', flashcardController.editFlashcard);
         app.delete('/flashcards/:id', flashcardController.deleteFlashcard);
-        app.get('/flashcards', flashcardController.getFlashcards); // Updated function name
-        app.get('/flashcards/:id', flashcardController.getFlashcardById); // Added new route
+        app.get('/flashcards', flashcardController.getFlashcards);
+        app.get('/flashcards/:id', flashcardController.getFlashcardById);
         app.delete('/categories/:category', flashcardController.deleteCategory);
         app.get('/categories', flashcardController.getCategories);
         app.post('/flashcards/bulk', flashcardController.addBulkFlashcards);
+        app.get('/stats', flashcardController.getFlashcardStats);
     });
     
     afterEach(() => {
@@ -118,6 +137,7 @@ describe('Flashcard Controller', () => {
             expect(response.body).toEqual({
                 id: 'mock-uuid-123',
                 ...newFlashcard,
+                box: 1,
                 userId: 'user-123'
             });
             expect(mockDb.data.flashcards).toHaveLength(4);
@@ -143,6 +163,62 @@ describe('Flashcard Controller', () => {
         });
     });
 
+    describe('updateFlashcardBox', () => {
+        it('should update box level successfully', async () => {
+            const response = await request(app)
+                .put('/flashcards/existing-id-1/box')
+                .send({ box: 4 });
+            
+            expect(response.status).toBe(200);
+            expect(response.body).toHaveProperty('message', 'Zaktualizowano poziom boxa na 4.');
+            expect(response.body).toHaveProperty('flashcard');
+            expect(response.body.flashcard.box).toBe(4);
+            expect(mockDb.data.flashcards[0].box).toBe(4);
+            expect(mockDb.write).toHaveBeenCalled();
+        });
+
+        it('should return 400 if box level is invalid', async () => {
+            const response = await request(app)
+                .put('/flashcards/existing-id-1/box')
+                .send({ box: 6 }); // Invalid box level
+            
+            expect(response.status).toBe(400);
+            expect(response.body).toHaveProperty('message', 'Nieprawidłowy poziom boxa. Musi być liczbą od 1 do 5.');
+            expect(mockDb.data.flashcards[0].box).toBe(2); // Unchanged
+            expect(mockDb.write).not.toHaveBeenCalled();
+        });
+
+        it('should return 404 if flashcard does not exist', async () => {
+            const response = await request(app)
+                .put('/flashcards/non-existent-id/box')
+                .send({ box: 3 });
+            
+            expect(response.status).toBe(404);
+            expect(response.body).toHaveProperty('message', 'Fiszka nie została znaleziona.');
+            expect(mockDb.write).not.toHaveBeenCalled();
+        });
+
+        it('should return 403 if user does not own the flashcard', async () => {
+            // Add a flashcard owned by another user
+            mockDb.data.flashcards.push({
+                id: 'other-user-flashcard',
+                question: 'Other User Question',
+                answer: 'Other User Answer',
+                category: 'Other',
+                box: 1,
+                userId: 'other-user-id'
+            });
+
+            const response = await request(app)
+                .put('/flashcards/other-user-flashcard/box')
+                .send({ box: 3 });
+
+            expect(response.status).toBe(403);
+            expect(response.body).toHaveProperty('message', 'Brak uprawnień do edycji tej fiszki.');
+            expect(mockDb.write).not.toHaveBeenCalled();
+        });
+    });
+
     describe('editFlashcard', () => {
         it('should edit an existing flashcard successfully', async () => {
             const updatedFlashcard = {
@@ -161,11 +237,13 @@ describe('Flashcard Controller', () => {
             expect(response.body).toEqual({
                 id: 'existing-id-1',
                 ...updatedFlashcard,
+                box: 2,
                 userId: 'user-123'
             });
             expect(mockDb.data.flashcards[0]).toEqual({
                 id: 'existing-id-1',
                 ...updatedFlashcard,
+                box: 2,
                 userId: 'user-123'
             })
             expect(mockDb.write).toHaveBeenCalled();
@@ -308,7 +386,7 @@ describe('Flashcard Controller', () => {
             const response = await request(app)
                 .get('/flashcards');
 
-            expect(response.status).toBe(200);
+              expect(response.status).toBe(200);
             expect(response.body).toHaveProperty('flashcards');
             expect(response.body.flashcards).toHaveLength(0);
             expect(response.body.flashcards).toEqual([]);
@@ -508,6 +586,130 @@ describe('Flashcard Controller', () => {
         });
     });
 
+    describe('getFlashcardStats', () => {
+        it('should return correct statistics for user flashcards', async () => {
+            const response = await request(app)
+                .get('/stats');
+            
+            expect(response.status).toBe(200);
+            
+            // Check stats structure
+            expect(response.body).toHaveProperty('stats');
+            expect(response.body).toHaveProperty('correctAnswers', 15);
+            expect(response.body).toHaveProperty('wrongAnswers', 5);
+            expect(response.body).toHaveProperty('correctPercentage', 75); // 15/(15+5) * 100
+            
+            // Check stats content
+            expect(response.body.stats).toHaveLength(2); // Programming and Polish categories
+            
+            // Find Programming category stats
+            const programmingStats = response.body.stats.find(s => s.category === 'Programming');
+            expect(programmingStats).toBeDefined();
+            expect(programmingStats.numberOfFlashcards).toBe(2);
+            expect(programmingStats.averageBoxLevel).toBe(2.5); // (2+3)/2
+            expect(programmingStats.sourceLanguages).toContain('en');
+            expect(programmingStats.targetLanguages).toContain('en');
+            
+            // Find Polish category stats
+            const polishStats = response.body.stats.find(s => s.category === 'Polish');
+            expect(polishStats).toBeDefined();
+            expect(polishStats.numberOfFlashcards).toBe(1);
+            expect(polishStats.averageBoxLevel).toBe(1);
+            expect(polishStats.sourceLanguages).toContain('pl');
+            expect(polishStats.targetLanguages).toContain('en');
+        });
+
+        it('should handle users with no flashcards', async () => {
+            // Setup empty flashcards for the user
+            mockDb.data.flashcards = [
+                {
+                    id: 'card-1',
+                    question: 'Question 1',
+                    answer: 'Answer 1',
+                    category: 'Programming',
+                    userId: 'other-user'
+                }
+            ];
+
+            const response = await request(app)
+                .get('/stats');
+
+            // Assertions
+            expect(response.status).toBe(200);
+            expect(response.body).toHaveProperty('stats');
+            expect(response.body.stats).toHaveLength(0);
+            expect(response.body).toHaveProperty('correctAnswers', 15);
+            expect(response.body).toHaveProperty('wrongAnswers', 5);
+            expect(response.body).toHaveProperty('correctPercentage', 75);
+        });
+
+        it('should handle non-existent user', async () => {
+            // Remove the user from the database
+            mockDb.data.users = [];
+
+            const response = await request(app)
+                .get('/stats');
+
+            // Assertions
+            expect(response.status).toBe(200);
+            expect(response.body).toHaveProperty('stats');
+            expect(response.body.stats).toHaveLength(2); // Still has flashcard stats
+            expect(response.body).toHaveProperty('correctAnswers', 0);
+            expect(response.body).toHaveProperty('wrongAnswers', 0);
+            expect(response.body).toHaveProperty('correctPercentage', null);
+        });
+
+        it('should handle flashcards with missing box values', async () => {
+            // Add a flashcard with missing box value
+            mockDb.data.flashcards.push({
+                id: 'no-box-card',
+                question: 'No Box Question',
+                answer: 'No Box Answer',
+                category: 'NoBox',
+                sourceLang: 'en',
+                targetLang: 'pl',
+                // No box value
+                userId: 'user-123'
+            });
+
+            const response = await request(app)
+                .get('/stats');
+
+            // Assertions
+            expect(response.status).toBe(200);
+            
+            // Find NoBox category stats
+            const noBoxStats = response.body.stats.find(s => s.category === 'NoBox');
+            expect(noBoxStats).toBeDefined();
+            expect(noBoxStats.numberOfFlashcards).toBe(1);
+            expect(noBoxStats.averageBoxLevel).toBeNaN(); // or could be 0 depending on implementation
+        });
+
+        it('should filter out flashcards from other users', async () => {
+            // Add a flashcard owned by another user
+            mockDb.data.flashcards.push({
+                id: 'other-user-card',
+                question: 'Other User Question',
+                answer: 'Other User Answer',
+                category: 'Programming',
+                box: 5,
+                userId: 'other-user-id'
+            });
+
+            const response = await request(app)
+                .get('/stats');
+
+            // Assertions
+            expect(response.status).toBe(200);
+            
+            // Programming stats should not include the other user's flashcard
+            const programmingStats = response.body.stats.find(s => s.category === 'Programming');
+            expect(programmingStats).toBeDefined();
+            expect(programmingStats.numberOfFlashcards).toBe(2); // Still only 2
+            expect(programmingStats.averageBoxLevel).toBe(2.5); // Still (2+3)/2
+        });
+    });
+
     describe('Authentication and Authorization', () => {
         it('should handle missing user in request', async () => {
             // Create a new app instance without the user in the request
@@ -534,6 +736,7 @@ describe('Flashcard Controller', () => {
             if (response.status === 200) {
                 expect(response.body).toHaveProperty('flashcards');
                 expect(Array.isArray(response.body.flashcards)).toBe(true);
+                expect(response.body.flashcards.length).toBe(0);
             }
         });
         
@@ -559,7 +762,7 @@ describe('Flashcard Controller', () => {
                     question: 'User 2 Question 1',
                     answer: 'User 2 Answer 1',
                     category: 'User2Category',
-                    userId: 'user-2'
+                                      userId: 'user-2'
                 },
                 {
                     id: 'user2-flashcard-2',
@@ -575,7 +778,7 @@ describe('Flashcard Controller', () => {
             appUser1.use(express.json());
             appUser1.use((req, res, next) => {
                 req.db = mockDb;
-                req.user = { id: 'user-1' };
+                req.user = { userId: 'user-1' }; // Changed from id to userId
                 next();
             });
             appUser1.get('/flashcards', flashcardController.getFlashcards);
@@ -584,7 +787,7 @@ describe('Flashcard Controller', () => {
             appUser2.use(express.json());
             appUser2.use((req, res, next) => {
                 req.db = mockDb;
-                req.user = { id: 'user-2' };
+                req.user = { userId: 'user-2' }; // Changed from id to userId
                 next();
             });
             appUser2.get('/flashcards', flashcardController.getFlashcards);
@@ -602,6 +805,96 @@ describe('Flashcard Controller', () => {
             expect(responseUser2.body).toHaveProperty('flashcards');
             expect(responseUser2.body.flashcards.length).toBe(2);
             expect(responseUser2.body.flashcards.every(f => f.userId === 'user-2')).toBe(true);
+        });
+    });
+
+    describe('Error Handling', () => {
+        it('should handle database read errors', async () => {
+            // Mock a database read error
+            mockDb.read = jest.fn().mockRejectedValue(new Error('Database read error'));
+            
+            const response = await request(app)
+                .get('/flashcards');
+            
+            // The controller should handle the error gracefully
+            expect(response.status).toBe(500);
+            expect(response.body).toHaveProperty('message');
+        });
+        
+        it('should handle database write errors', async () => {
+            // Mock a database write error
+            mockDb.write = jest.fn().mockRejectedValue(new Error('Database write error'));
+            
+            const newFlashcard = {
+                question: 'New Question',
+                answer: 'New Answer',
+                category: 'New Category',
+                sourceLang: 'en',
+                targetLang: 'pl'
+            };
+            
+            const response = await request(app)
+                .post('/flashcards')
+                .send(newFlashcard);
+            
+            // The controller should handle the error gracefully
+            expect(response.status).toBe(500);
+            expect(response.body).toHaveProperty('message');
+        });
+    });
+
+    describe('Edge Cases', () => {
+        it('should handle empty database', async () => {
+            // Set up an empty database
+            mockDb.data = { flashcards: [], users: [] };
+            
+            const response = await request(app)
+                .get('/flashcards');
+            
+            expect(response.status).toBe(200);
+            expect(response.body).toHaveProperty('flashcards');
+            expect(response.body.flashcards).toHaveLength(0);
+        });
+        
+        it('should handle malformed request bodies', async () => {
+            // Test with various malformed bodies
+            const testCases = [
+                { body: null, expectedStatus: 400 },
+                { body: undefined, expectedStatus: 400 },
+                { body: '', expectedStatus: 400 },
+                { body: {}, expectedStatus: 400 },
+                { body: [], expectedStatus: 400 }
+            ];
+            
+            for (const testCase of testCases) {
+                const response = await request(app)
+                    .post('/flashcards')
+                    .send(testCase.body);
+                
+                expect(response.status).toBe(testCase.expectedStatus);
+            }
+        });
+        
+        it('should sanitize inputs to prevent injection attacks', async () => {
+            const maliciousFlashcard = {
+                question: '<script>alert("XSS")</script>',
+                answer: 'Malicious answer',
+                category: 'Malicious category',
+                sourceLang: 'en',
+                targetLang: 'pl'
+            };
+            
+            const response = await request(app)
+                .post('/flashcards')
+                .send(maliciousFlashcard);
+            
+            // The controller should sanitize the input or handle it safely
+            expect(response.status).toBe(201);
+            
+            // Check if the script tag was sanitized or escaped
+            // This depends on your implementation - adjust as needed
+            const savedFlashcard = mockDb.data.flashcards.find(f => f.id === 'mock-uuid-123');
+            expect(savedFlashcard.question).not.toContain('<script>');
         });
     });
 });
