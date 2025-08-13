@@ -10,11 +10,12 @@ interface Flashcard {
     category: string;
     sourceLang: string;
     targetLang: string;
+    box: number;
 }
 
 const AddBulkFlashcards: React.FC = () => {
     const [bulkCards, setBulkCards] = useState<Flashcard[]>([
-        {question: "", answer: "", category: "", sourceLang: "", targetLang: ""}
+        {question: "", answer: "", category: "", sourceLang: "", targetLang: "", box: 1}
     ]);
     const [currentIndex, setCurrentIndex] = useState(0);
     const [isSubmitting, setIsSubmitting] = useState(false);
@@ -43,7 +44,7 @@ const AddBulkFlashcards: React.FC = () => {
         if(currentIndex === bulkCards.length - 1) {
             setBulkCards(prev => [
                 ...prev,
-                {question: "", answer: "", category: "", sourceLang: "", targetLang: ""}
+                {question: "", answer: "", category: "", sourceLang: "", targetLang: "", box: 1}
             ]);
         }
         setCurrentIndex(prev => prev + 1);

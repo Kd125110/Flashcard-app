@@ -8,9 +8,11 @@
     {
       "id": 2,
       "email": "Karol@gmail.com",
-      "password": "$2b$10$6le381eBohBO2F6oYX6aHeXKK.1lETx7i6hHEaSRZn5ual5bdrFvu",
+      "password": "$2b$10$AdPivXRLt2K7TY3EitjshOD9pk0D3yb6.iGfmY.Rdj3G6JzCnHwjq",
       "wrongAnswers": 1,
-      "correctAnswers": 1
+      "correctAnswers": 1,
+      "name": "Karol",
+      "surname": "Dabrowski"
     },
     {
       "id": 3,
@@ -56,19 +58,10 @@
       "email": "1234@gmail.com",
       "password": "$2b$10$BBXmQMA3RzgawO75m3MkieS6Dbbj6ux34vQDB6nwEo8AuEXKzQMJW",
       "correctAnswers": 4,
-      "wrongAnswers": 4
+      "wrongAnswers": 9
     }
   ],
   "flashcards": [
-    {
-      "id": "59093832-2ce3-411e-8b32-ac2adf7f5ea2",
-      "question": "1",
-      "answer": "1",
-      "category": "1",
-      "sourceLang": "Polish",
-      "targetLang": "English",
-      "box": 1
-    },
     {
       "id": "673bcab1-f84e-4b04-aecd-ca6749bf9147",
       "question": "11",
@@ -96,7 +89,16 @@
       "targetLang": "en",
       "id": "cb3ce201-f13e-4e92-8538-9446a0758e85",
       "userId": 10,
-      "box": 3
+      "box": 1
+    },
+    {
+      "question": "Kot",
+      "answer": "Cat",
+      "category": "Zwierzęta",
+      "sourceLang": "pl",
+      "targetLang": "en",
+      "id": "c091cbcd-0652-4ca8-934d-e59364e874e8",
+      "userId": 2
     }
   ]
 }

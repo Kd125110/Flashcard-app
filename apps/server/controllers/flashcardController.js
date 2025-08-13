@@ -172,8 +172,8 @@ export const getCategories = async (req, res) => {
 
   const userId = req.user.userId;
   
-  // Only get categories for the user's flashcards
-  const userFlashcards = db.data.flashcards.filter(f => !f.userId || f.userId === userId);
+  // Only get categories for the user's flashcards - strict matching on userId
+  const userFlashcards = db.data.flashcards.filter(f => f.userId === userId);
   const categories = [...new Set(userFlashcards.map(f => f.category))];
 
   res.status(200).json(categories);
