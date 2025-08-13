@@ -6,6 +6,17 @@ import authRoutes from './routes/auth.js';
 import flashcardRoutes from './routes/flashcard.js';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import dotenv from 'dotenv';
+
+
+// Load environment variables
+dotenv.config();
+
+// Ensure JWT_SECRET is set
+if (!process.env.JWT_SECRET) {
+  console.log('JWT_SECRET not found in environment variables, using default secret');
+  process.env.JWT_SECRET = '3f9a8b7c2e1d4f6a9b0c7e5d1a2f3c4b6e7d8a9c0b1e2f3d4c5a6b7e8f9a0b1';
+}
 
 // Get the directory name properly in ES modules
 const __filename = fileURLToPath(import.meta.url);
@@ -16,7 +27,13 @@ const app = express();
 const port = process.env.PORT || 3001;
 
 // Middleware
-app.use(cors());
+app.use(cors({
+  origin: ['http://localhost:3000', 'http://127.0.0.1:3000', 'http://localhost:5173', 'http://127.0.0.1:5173'], // Frontend URLs
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS','PATCH'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
+
 app.use(express.json());
 
 // Initialize database
@@ -30,7 +47,7 @@ const initializeDb = async () => {
   
   try {
     await db.read();
-    console.log(`Database loaded successfully. Users: ${db.data.users.length}`);
+    console.log(`Database loaded successfully. Users: ${db.data.users.length}, Flashcards: ${db.data.flashcards.length}`);
     return db;
   } catch (error) {
     console.error(`Error loading database: ${error.message}`);
@@ -41,8 +58,19 @@ const initializeDb = async () => {
 // Global database instance
 let dbInstance = null;
 
+// Debug middleware to log requests
+const requestLogger = (req, res, next) => {
+  console.log(`${new Date().toISOString()} - ${req.method} ${req.originalUrl}`);
+  next();
+};
+
 // Setup routes
 const setupRoutes = (app, db) => {
+  // Add request logging in development
+  if (process.env.NODE_ENV !== 'production') {
+    app.use(requestLogger);
+  }
+
   // Test endpoint
   app.get('/', (req, res) => {
     res.send('API działa!');
@@ -53,6 +81,14 @@ const setupRoutes = (app, db) => {
     res.json({
       usersCount: db.data.users.length,
       flashcardsCount: db.data.flashcards.length
+    });
+  });
+
+  // Debug endpoint to check JWT
+  app.get('/api/debug/jwt', (req, res) => {
+    res.json({
+      jwtSecretSet: !!process.env.JWT_SECRET,
+      jwtSecretLength: process.env.JWT_SECRET ? process.env.JWT_SECRET.length : 0
     });
   });
 
@@ -68,12 +104,20 @@ const setupRoutes = (app, db) => {
     next();
   }, flashcardRoutes);
 
+  // 404 handler
+  app.use((req, res) => {
+    res.status(404).json({ message: `Route not found: ${req.originalUrl}` });
+  });
+
   // Error handling for JSON
   app.use((err, req, res, next) => {
+    console.error(`Error processing request: ${err.message}`);
+    
     if (err instanceof SyntaxError && err.status === 400 && 'body' in err) {
       return res.status(400).json({ message: 'Invalid JSON format' });
     }
-    next();
+    
+    res.status(500).json({ message: 'Internal server error', error: err.message });
   });
 };
 
@@ -101,6 +145,7 @@ if (isRunDirectly) {
   initializeServer().then(() => {
     app.listen(port, () => {
       console.log(`Server is running on http://localhost:${port}`);
+      console.log(`JWT_SECRET is ${process.env.JWT_SECRET ? 'configured' : 'NOT configured'}`);
     });
   }).catch(err => {
     console.error(`Failed to start server: ${err.message}`);

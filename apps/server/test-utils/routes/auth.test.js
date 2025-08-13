@@ -205,71 +205,102 @@ describe('Auth Routes', () => {
       expect(bcrypt.compare).toHaveBeenCalledWith('wrongpassword', 'hashedPassword123');
     });
   });
-  describe('PUT /edit/:id', () => {
-    it('should updated user succesfully', async () =>{
-      const updatedData = {
-        name: 'Updated',
-        surname: 'User',
-        email: 'updated@example.com',
-        password: 'newpassword'
-      };
+describe('PUT /edit/:id', () => {
+  it('should update user successfully when authenticated', async () => {
+    const updatedData = {
+      name: 'Updated',
+      surname: 'User',
+      email: 'updated@example.com',
+      password: 'newpassword'
+    };
 
-      const response = await request(app)
-        .put('/auth/edit/1')
-        .send(updatedData);
+    const response = await request(app)
+      .put('/auth/edit/1')
+      .set('Authorization', 'Bearer valid-token') // Add authentication token
+      .send(updatedData);
 
-      expect(response.status).toBe(200);
-      expect(response.body).toHaveProperty('message', 'Użytkownik zaktualizowany');
-      expect(response.body.user).toMatchObject({
-        id: 1,
-        ...updatedData
-      });
-      expect(mockDb.write).toHaveBeenCalled();
+    expect(response.status).toBe(200);
+    expect(response.body).toHaveProperty('message', 'Użytkownik zaktualizowany');
+    expect(response.body.user).toMatchObject({
+      id: 1,
+      name: 'Updated',
+      surname: 'User',
+      email: 'updated@example.com'
     });
-
-    it('should return 404 if the user does not exist', async () => {
-      const updatedData = {
-        name: 'Updated',
-        surname: 'User',
-        email: 'updated@example.com',
-        password: 'newpassword'
-      };
-
-      const response = await request(app)
-        .put('/auth/edit/999')
-        .send(updatedData);
-
-      expect(response.status).toBe(404);
-      expect(response.body).toHaveProperty('message', 'Nie odnaleziono użytkownika');
-      expect(mockDb.write).not.toHaveBeenCalled();
-    });
+    expect(mockDb.write).toHaveBeenCalled();
   });
 
-  describe('DELETE /delete/:id', () => {
-    it('should delete user succesfully', async () => {
-      const response = await request(app).delete('/auth/delete/1');
+  it('should return 401 if not authenticated', async () => {
+    const updatedData = {
+      name: 'Updated',
+      surname: 'User',
+      email: 'updated@example.com',
+      password: 'newpassword'
+    };
 
-      expect(response.status).toBe(200);
-      expect(response.body).toHaveProperty('message', 'Użytkownik usunięty');
-      expect(response.body.user).toMatchObject({
-        id: 1,
-        name: 'Test',
-        surname: 'User',
-        email: 'test@example.com'
-      });
-      expect(mockDb.data.users).toHaveLength(0);
-      expect(mockDb.write).toHaveBeenCalled();
+    const response = await request(app)
+      .put('/auth/edit/1')
+      .send(updatedData);
+
+    expect(response.status).toBe(401);
+  });
+
+  it('should return 404 if the user does not exist', async () => {
+    const updatedData = {
+      name: 'Updated',
+      surname: 'User',
+      email: 'updated@example.com',
+      password: 'newpassword'
+    };
+
+    const response = await request(app)
+      .put('/auth/edit/999')
+      .set('Authorization', 'Bearer valid-token') // Add authentication token
+      .send(updatedData);
+
+    expect(response.status).toBe(404);
+    expect(response.body).toHaveProperty('message', 'Nie odnaleziono użytkownika');
+    expect(mockDb.write).not.toHaveBeenCalled();
+  });
+});
+
+
+describe('DELETE /delete/:id', () => {
+  it('should delete user successfully when authenticated', async () => {
+    const response = await request(app)
+      .delete('/auth/delete/1')
+      .set('Authorization', 'Bearer valid-token'); // Add authentication token
+
+    expect(response.status).toBe(200);
+    expect(response.body).toHaveProperty('message', 'Użytkownik usunięty');
+    expect(response.body.user).toMatchObject({
+      id: 1,
+      name: 'Test',
+      surname: 'User',
+      email: 'test@example.com'
     });
+    expect(mockDb.data.users).toHaveLength(0);
+    expect(mockDb.write).toHaveBeenCalled();
+  });
 
-    it('should return 404 if the user does not exist', async () => {
-      const response = await request(app).delete('/auth/delete/999');
+  it('should return 401 if not authenticated', async () => {
+    const response = await request(app)
+      .delete('/auth/delete/1');
 
-      expect(response.status).toBe(404);
-      expect(response.body).toHaveProperty('message', 'Nie odnaleziono użytkownika');
-      expect(mockDb.data.users).toHaveLength(1);
-      expect(mockDb.write).not.toHaveBeenCalled();
-    })
-  })
+    expect(response.status).toBe(401);
+  });
+
+  it('should return 404 if the user does not exist', async () => {
+    const response = await request(app)
+      .delete('/auth/delete/999')
+      .set('Authorization', 'Bearer valid-token'); // Add authentication token
+
+    expect(response.status).toBe(404);
+    expect(response.body).toHaveProperty('message', 'Nie odnaleziono użytkownika');
+    expect(mockDb.data.users).toHaveLength(1);
+    expect(mockDb.write).not.toHaveBeenCalled();
+  });
+});
 
   describe('GER /user/:id', () => {
     it('shoudl return users by ID succesfully', async() => {

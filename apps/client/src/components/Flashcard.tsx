@@ -8,7 +8,8 @@ interface FlashcardProps {
   category: string;
   sourceLang: string;
   targetLang: string;
-  blurred?: boolean;
+  blurred: boolean;
+  box?: number;
 }
 
 const Flashcard: React.FC<FlashcardProps> = ({
@@ -17,6 +18,7 @@ const Flashcard: React.FC<FlashcardProps> = ({
   category,
   sourceLang,
   targetLang,
+  box,
   blurred = false,
 }) => {
   const [flipped, setFlipped] = useState(false);
@@ -36,6 +38,8 @@ const Flashcard: React.FC<FlashcardProps> = ({
           <div className="text-lg font-bold text-black mb-2">{category}</div>
           <div className="text-xl text-center">{question}</div>
           <div className="text-sm text-center mt-2">Język źródłowy: {sourceLang}</div>
+          <div className="text-sm text-gray-500 mt-2">📦 Poziom: {box ?? 1}</div>
+
         </div>
 
         {/* Back side */}
@@ -43,6 +47,7 @@ const Flashcard: React.FC<FlashcardProps> = ({
           <div className="text-lg font-bold text-black mb-2">{category}</div>
           <div className={`${blurred ? 'blur-sm' : ''} text-xl text-center`}>{answer}</div>
           <div className="text-sm text-center mt-2">Język docelowy: {targetLang}</div>
+          <div className="text-sm text-gray-500 mt-2">📦 Poziom: {box ?? 1}</div>
         </div>
       </div>
     </div>

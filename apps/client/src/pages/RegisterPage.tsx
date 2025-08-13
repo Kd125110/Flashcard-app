@@ -1,83 +1,105 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import '../output.css'
+import RegisterForm from '../components/RegisterForm';
+import '../output.css';
 
 const RegisterPage: React.FC = () => {
   const navigate = useNavigate();
-  const [name , setName] = React.useState('');
-  const [surname, setSurname] = React.useState('');
-  const [email, setEmail] = React.useState('');
-  const [password, setPassword] = React.useState('');
-  const [message, setMessage] = React.useState('');
+  const [name, setName] = useState('');
+  const [surname, setSurname] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [message, setMessage] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleLogin = async (e: React.FormEvent) => {
+  const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setName(e.target.value);
+  };
+
+  const handleSurnameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSurname(e.target.value);
+  };
+
+  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setEmail(e.target.value);
+  };
+
+  const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPassword(e.target.value);
+  };
+
+  const handleLoginClick = () => {
+    navigate('/login');
+  };
+
+  const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
     setMessage('');
+    setIsSubmitting(true);
+
+    const nameRegex = /^[a-zA-ZąćęłńóśźżĄĆĘŁŃÓŚŹŻ\s-]*$/;
+
+    if (!nameRegex.test(name)) {
+      setMessage('Imię zawiera niedozwolone znaki');
+      setIsSubmitting(false);
+      return;
+    }
+    if (!nameRegex.test(surname)) {
+      setMessage('Nazwisko zawiera niedozwolone znaki');
+      setIsSubmitting(false);
+      return;
+    }
+    if (!email.includes('@')) {
+      setMessage('Podaj poprawny adres email');
+      setIsSubmitting(false);
+      return;
+    }
+    if (password.length < 6) {
+      setMessage('Hasło musi mieć co najmniej 6 znaków');
+      setIsSubmitting(false);
+      return;
+    }
+
     try {
       const response = await fetch('http://localhost:3001/api/auth/register', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ email, password }),
+        body: JSON.stringify({ name, surname, email, password }),
       });
       const data = await response.json();
 
       if (response.ok) {
-        setMessage('Register successful!');
+        setMessage('Rejestracja zakończona pomyślnie!');
         await new Promise(resolve => setTimeout(resolve, 1000)); // Optional delay for user feedback
         navigate('/login');
       } else {
-        setMessage(data.message || 'Registration failed. Please try again.');
+        setMessage(data.message || 'Rejestracja nie powiodła się. Spróbuj ponownie.');
       }
-    } catch {
-      setMessage('An error occurred while logging in. Please try again later.');
+    } catch (error) {
+      setMessage('Wystąpił błąd podczas rejestracji. Spróbuj ponownie później.');
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
   return (
-    <div className="flex items-center justify-center mx-auto bg-transparent">
-      <form className="bg-white p-8 rounded shadow min-w-[300px] flex flex-col gap-4" onSubmit={handleLogin}>
-        <h2>Register</h2>
-         <input
-          className="p-2 border border-gray-300 rounded text-base"
-          type="name"
-          placeholder="name"
-          value={name}
-          onChange={e => setName(e.target.value)}
-          required
-        />
-         <input
-          className="p-2 border border-gray-300 rounded text-base"
-          type="surname"
-          placeholder="surname"
-          value={surname}
-          onChange={e => setSurname(e.target.value)}
-          required
-        />
-        <input
-          className="p-2 border border-gray-300 rounded text-base"
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={e => setEmail(e.target.value)}
-          required
-        />
-        <input
-          className="p-2 border border-gray-300 rounded text-base"
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={e => setPassword(e.target.value)}
-          required
-        />
-        <button className="p-3 rounded border-none bg-[#007bff] text-white font-bold cursor-pointer text-base" type="submit">
-          Register
-        </button>
-        {message && <div className="text-red-500 text-center">{message}</div>}
-      </form>
-    </div>
+    <RegisterForm
+      name={name}
+      surname={surname}
+      email={email}
+      password={password}
+      message={message}
+      isSubmitting={isSubmitting}
+      onNameChange={handleNameChange}
+      onSurnameChange={handleSurnameChange}
+      onEmailChange={handleEmailChange}
+      onPasswordChange={handlePasswordChange}
+      onSubmit={handleRegister}
+      onLoginClick={handleLoginClick}
+    />
   );
 };
 
-export default RegisterPage;
+  export default RegisterPage;

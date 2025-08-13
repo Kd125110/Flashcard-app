@@ -1,19 +1,22 @@
 import React from 'react';
-import '../output.css'
+import '../output.css';
 import Navbar from '../components/Navbar';
+import DashboardView from '../components/DashboardView';
+import useDashboardStats from '../hooks/useDashboardStats';
 
 const DashboardPage: React.FC = () => {
- 
- return(
- <div className="flex items-center justify-center mx-auto bg-transparent">
-    <Navbar />
-    <div>
-        <h1>Witaj w aplikacji fiszek!</h1>
-        <p>Jesteś zalogowany.</p>
-        <p>Tutaj będą statystki kiedyś</p>
+  const { statsData, loading, error } = useDashboardStats();
+  
+  return (
+    <div className="flex flex-col min-h-screen max-w-4xl mx-auto mt-4">
+      <Navbar />
+      <DashboardView 
+        statsData={statsData} 
+        loading={loading} 
+        error={error} 
+      />
     </div>
- </div>
-);
+  );
 };
 
 export default DashboardPage;

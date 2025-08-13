@@ -22,45 +22,65 @@ const AddFlashcardPage: React.FC = () => {
   const [flashcards, setFlashcards] = useState<FlashcardData[]>([]);
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setMessage('');
+  e.preventDefault();
+  setMessage('');
 
-    const allowedPairs = [
-  ["Polish", "English"],
-  ["English","Polish"],
-  ["Polish","German"],
-  ["German","Polish"]
-]
+  const allowedPairs = [
+    ["Polish", "English"],
+    ["English", "Polish"],
+    ["Polish", "German"],
+    ["German", "Polish"],
+    ["German", "English"],
+    ["English", "German"]
+  ];
 
   const isValidPair = allowedPairs.some(
     ([src, tgt]) => src === sourceLang && tgt === targetLang
   );
-  if(!isValidPair){
+  
+  if (!isValidPair) {
     setMessage("Dozwolone są tylko pary językowe: PL-EN, EN-PL, PL-DE, DE-PL");
     return;
   }
-    try {
-      const response = await fetch('http://localhost:3001/flashcards/add', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ question, answer, category, sourceLang, targetLang }),
-      });
-
-      if (response.ok) {
-        setMessage('Dodano fiszkę!');
-        setFlashcards(prev => [...prev, { question, answer, category, sourceLang, targetLang }]);
-        setQuestion('');
-        setAnswer('');
-        setCategory('');
-        setSourceLang('');
-        setTargetLang('');
-      } else {
-        setMessage('Błąd podczas dodawania fiszki.');
-      }
-    } catch {
-      setMessage('Błąd połączenia z serwerem.');
+  
+  try {
+    // Get the authentication token from localStorage or wherever you store it
+    const token = localStorage.getItem('authToken');
+    
+    const response = await fetch('http://localhost:3001/flashcards/add', {
+    method: 'POST',
+    headers: { 
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    },
+    body: JSON.stringify({ question, answer, category, sourceLang, targetLang }),
+    credentials: 'include'
+  });
+    if (response.ok) {
+      const data = await response.json();
+      setMessage('Dodano fiszkę!');
+      setFlashcards(prev => [...prev, { 
+        question, 
+        answer, 
+        category, 
+        sourceLang, 
+        targetLang 
+      }]);
+      setQuestion('');
+      setAnswer('');
+      setCategory('');
+      setSourceLang('');
+      setTargetLang('');
+    } else {
+      // Try to get more detailed error message from the server
+      const errorData = await response.json().catch(() => ({}));
+      setMessage(`Błąd podczas dodawania fiszki: ${errorData.message || response.statusText}`);
     }
-  };
+  } catch (error) {
+    console.error('Error adding flashcard:', error);
+    setMessage('Błąd połączenia z serwerem.');
+  }
+};
 
 return (
   <div className="min-h-screen bg-white mt-10">
@@ -136,7 +156,7 @@ return (
       </form>
 
       {/* Podgląd ostatnio dodanej fiszki */}
-      <div className="w-full lg:w-1/2 flex justify-center items-start mt-20 ml-5">
+      <div className="w-full lg:w-1/2 flex justify-center items-start mt-10">
         {flashcards.length > 0 && (
           <Flashcard
             question={flashcards[flashcards.length - 1].question}

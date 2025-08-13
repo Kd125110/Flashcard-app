@@ -8,13 +8,97 @@
     {
       "id": 2,
       "email": "Karol@gmail.com",
-      "password": "$2b$10$6le381eBohBO2F6oYX6aHeXKK.1lETx7i6hHEaSRZn5ual5bdrFvu"
+      "password": "$2b$10$AdPivXRLt2K7TY3EitjshOD9pk0D3yb6.iGfmY.Rdj3G6JzCnHwjq",
+      "wrongAnswers": 1,
+      "correctAnswers": 1,
+      "name": "Karol",
+      "surname": "Dabrowski"
     },
     {
       "id": 3,
       "email": "test@example.com",
       "password": "$2b$10$KEXKwrRgXLlAASOM72mVQe5Yz8Dsy.w2d6BcjqEMIwfSLtRUQFZnu"
+    },
+    {
+      "id": 4,
+      "email": "test1754314011909@example.com",
+      "password": "$2b$10$D3dCPsVRkgTvKF./Mt/1E.utJnz6qB98COBDGxlXICWW//FN8j/ny"
+    },
+    {
+      "id": 5,
+      "email": "test1754314101140@example.com",
+      "password": "$2b$10$ivd1QT29ZCU7DMXRPNUTNuRgKSpH.sYHsl7uziryElOZsrOInmnhi"
+    },
+    {
+      "id": 6,
+      "email": "test1754314127983@example.com",
+      "password": "$2b$10$U6exQD2.H6l7AVnPo1W9o.wDJywj9L1XResxU.baDG9biNv6sQs2i"
+    },
+    {
+      "id": 7,
+      "email": "Kuba@example.com",
+      "password": "$2b$10$FGnG53X9EJwF..K0FSaJEeHeZK2kNcXu6FrIGEnm4rvZmIxefMOre"
+    },
+    {
+      "id": 8,
+      "email": "jan.kowalski@example.com",
+      "password": "$2b$10$l7jXD.9vP0dZTMC.qkdtDeHJZYuBQcJRqANtPhSBPDtw5lg.CNFdO"
+    },
+    {
+      "id": 9,
+      "name": "Karol",
+      "surname": "Dabrowski",
+      "email": "123@gmail.com",
+      "password": "$2b$10$uLL2dJppSJHR0Z4oEDo/N.GUuw8ql.YG916j3tXoz6L9e4emaai7m"
+    },
+    {
+      "id": 10,
+      "name": "Karol",
+      "surname": "Dabrowski",
+      "email": "1234@gmail.com",
+      "password": "$2b$10$BBXmQMA3RzgawO75m3MkieS6Dbbj6ux34vQDB6nwEo8AuEXKzQMJW",
+      "correctAnswers": 4,
+      "wrongAnswers": 9
     }
   ],
-  "flashcards": []
+  "flashcards": [
+    {
+      "id": "673bcab1-f84e-4b04-aecd-ca6749bf9147",
+      "question": "11",
+      "answer": "11",
+      "category": "11",
+      "sourceLang": "Polish",
+      "targetLang": "English",
+      "box": 1
+    },
+    {
+      "id": "0ce2e9aa-7da5-405a-9bff-b561e81eaee6",
+      "question": "Haus",
+      "answer": "dom",
+      "category": "Podstawowe",
+      "sourceLang": "German",
+      "targetLang": "Polish",
+      "box": 3,
+      "userId": 2
+    },
+    {
+      "question": "Dom",
+      "answer": "House",
+      "category": "Dom",
+      "sourceLang": "pl",
+      "targetLang": "en",
+      "id": "cb3ce201-f13e-4e92-8538-9446a0758e85",
+      "userId": 10,
+      "box": 1
+    },
+    {
+      "question": "Kot",
+      "answer": "Cat",
+      "category": "Zwierzęta",
+      "sourceLang": "pl",
+      "targetLang": "en",
+      "id": "c091cbcd-0652-4ca8-934d-e59364e874e8",
+      "userId": 2
+    }
+  ]
 }
