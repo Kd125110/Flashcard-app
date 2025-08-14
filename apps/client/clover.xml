@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1755131824527" clover="3.2.0">
-  <project timestamp="1755131824527" name="All files">
-    <metrics statements="709" coveredstatements="469" conditionals="245" coveredconditionals="109" methods="157" coveredmethods="95" elements="1111" coveredelements="673" complexity="0" loc="709" ncloc="709" packages="5" files="31" classes="31"/>
+<coverage generated="1755187795580" clover="3.2.0">
+  <project timestamp="1755187795581" name="All files">
+    <metrics statements="709" coveredstatements="477" conditionals="245" coveredconditionals="127" methods="157" coveredmethods="100" elements="1111" coveredelements="704" complexity="0" loc="709" ncloc="709" packages="5" files="31" classes="31"/>
     <package name="src">
       <metrics statements="13" coveredstatements="13" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
       <file name="App.tsx" path="C:\Flashcard-app\apps\client\src\App.tsx">
@@ -22,7 +22,7 @@
       </file>
     </package>
     <package name="src.components">
-      <metrics statements="115" coveredstatements="52" conditionals="105" coveredconditionals="39" methods="48" coveredmethods="17"/>
+      <metrics statements="115" coveredstatements="60" conditionals="105" coveredconditionals="57" methods="48" coveredmethods="22"/>
       <file name="DashboardView.tsx" path="C:\Flashcard-app\apps\client\src\components\DashboardView.tsx">
         <metrics statements="7" coveredstatements="0" conditionals="10" coveredconditionals="0" methods="4" coveredmethods="0"/>
         <line num="2" count="0" type="stmt"/>
@@ -62,15 +62,15 @@
         <line num="52" count="0" type="stmt"/>
       </file>
       <file name="FlashcardForm.tsx" path="C:\Flashcard-app\apps\client\src\components\FlashcardForm.tsx">
-        <metrics statements="8" coveredstatements="0" conditionals="18" coveredconditionals="0" methods="5" coveredmethods="0"/>
-        <line num="2" count="0" type="stmt"/>
-        <line num="15" count="0" type="stmt"/>
-        <line num="24" count="0" type="stmt"/>
-        <line num="85" count="0" type="stmt"/>
-        <line num="101" count="0" type="stmt"/>
-        <line num="122" count="0" type="stmt"/>
-        <line num="142" count="0" type="stmt"/>
-        <line num="175" count="0" type="stmt"/>
+        <metrics statements="8" coveredstatements="8" conditionals="18" coveredconditionals="18" methods="5" coveredmethods="5"/>
+        <line num="2" count="1" type="stmt"/>
+        <line num="15" count="1" type="stmt"/>
+        <line num="24" count="13" type="stmt"/>
+        <line num="85" count="1" type="stmt"/>
+        <line num="101" count="33" type="stmt"/>
+        <line num="122" count="39" type="stmt"/>
+        <line num="142" count="39" type="stmt"/>
+        <line num="175" count="1" type="stmt"/>
       </file>
       <file name="FlashcardGuessingView.tsx" path="C:\Flashcard-app\apps\client\src\components\FlashcardGuessingView.tsx">
         <metrics statements="6" coveredstatements="6" conditionals="15" coveredconditionals="14" methods="3" coveredmethods="3"/>

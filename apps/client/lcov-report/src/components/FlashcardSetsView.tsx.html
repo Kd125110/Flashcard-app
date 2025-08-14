@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/9</span>
+                <span class='fraction'>9/9</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">80% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/10</span>
+                <span class='fraction'>8/10</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/2</span>
+                <span class='fraction'>2/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/9</span>
+                <span class='fraction'>9/9</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -201,11 +201,11 @@
 <a name='L136'></a><a href='#L136'>136</a>
 <a name='L137'></a><a href='#L137'>137</a>
 <a name='L138'></a><a href='#L138'>138</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -231,7 +231,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -252,7 +252,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">35x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -319,7 +319,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -337,12 +337,12 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from "react";
-<span class="cstat-no" title="statement not covered" >import { Link } from "react-router-dom";</span>
-<span class="cstat-no" title="statement not covered" >import { FiPlus, FiX } from "react-icons/fi";</span>
-<span class="cstat-no" title="statement not covered" >import FlashcardForm from "./FlashcardForm";</span>
-<span class="cstat-no" title="statement not covered" >import FlashcardSet from "./FlashcardSet";</span>
-<span class="cstat-no" title="statement not covered" >import EmptyState from "./EmptyState";</span>
+<span class="cline-any cline-yes">1x</span></td><td class="text"><pre class="prettyprint lang-js">import React from "react";
+import { Link } from "react-router-dom";
+import { FiPlus, FiX } from "react-icons/fi";
+import FlashcardForm from "./FlashcardForm";
+import FlashcardSet from "./FlashcardSet";
+import EmptyState from "./EmptyState";
 import type { Flashcard, LanguageOption } from "../hooks/useFlashcardSets";
 &nbsp;
 interface FlashcardSetsViewProps {
@@ -368,7 +368,7 @@ interface FlashcardSetsViewProps {
   getLanguageName: (code: string) =&gt; string;
 }
 &nbsp;
-const FlashcardSetsView: React.FC&lt;FlashcardSetsViewProps&gt; = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >({</span></span>
+const FlashcardSetsView: React.FC&lt;FlashcardSetsViewProps&gt; = ({
   grouped,
   newCard,
   editingCardId,
@@ -389,7 +389,7 @@ const FlashcardSetsView: React.FC&lt;FlashcardSetsViewProps&gt; = <span class="c
   clearError,
   getLanguageName
 }) =&gt; {
-<span class="cstat-no" title="statement not covered" >  return (</span>
+  return (
     &lt;div className="max-w-6xl mx-auto px-4 py-8"&gt;
       &lt;div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 mt-8"&gt;
         &lt;div&gt;
@@ -402,7 +402,7 @@ const FlashcardSetsView: React.FC&lt;FlashcardSetsViewProps&gt; = <span class="c
             className="flex items-center justify-center px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
           &gt;
             {isFormVisible ? (
-              &lt;&gt;
+<span class="branch-0 cbranch-no" title="branch not covered" >              &lt;&gt;</span>
                 &lt;FiX className="mr-2" /&gt; Ukryj formularz
               &lt;/&gt;
             ) : (
@@ -435,7 +435,7 @@ const FlashcardSetsView: React.FC&lt;FlashcardSetsViewProps&gt; = <span class="c
       
       {/* Flashcard Form */}
       {isFormVisible &amp;&amp; (
-        &lt;FlashcardForm
+<span class="branch-1 cbranch-no" title="branch not covered" >        &lt;FlashcardForm</span>
           newCard={newCard}
           editingCardId={editingCardId}
           categories={categories}
@@ -455,8 +455,8 @@ const FlashcardSetsView: React.FC&lt;FlashcardSetsViewProps&gt; = <span class="c
         &lt;EmptyState toggleFormVisibility={toggleFormVisibility} /&gt;
       ) : (
         &lt;div className="space-y-6"&gt;
-          {Object.entries(grouped).map(<span class="fstat-no" title="function not covered" >([</span>category, cards]) =&gt; (
-<span class="cstat-no" title="statement not covered" >            &lt;FlashcardSet</span>
+          {Object.entries(grouped).map(([category, cards]) =&gt; (
+            &lt;FlashcardSet
               key={category}
               category={category}
               cards={cards}
@@ -474,14 +474,14 @@ const FlashcardSetsView: React.FC&lt;FlashcardSetsViewProps&gt; = <span class="c
   );
 };
 &nbsp;
-<span class="cstat-no" title="statement not covered" >export default FlashcardSetsView;</span></pre></td></tr></table></pre>
+export default FlashcardSetsView;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
             </div><!-- /wrapper -->
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-08-14T00:37:04.369Z
+                at 2025-08-14T16:11:32.471Z
             </div>
         <script src="../../prettify.js"></script>
         <script>
