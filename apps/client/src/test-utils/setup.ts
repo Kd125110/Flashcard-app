@@ -1,4 +1,10 @@
-import '@testing-library/jest-dom';import '@testing-library/jest-dom';
+import '@testing-library/jest-dom';
+
+import fetchMock from 'jest-fetch-mock';
+fetchMock.enableMocks();
+
+// 👇 To jest kluczowe!
+
 
 // Mock dla window.matchMedia
 Object.defineProperty(window, 'matchMedia', {
@@ -14,14 +20,22 @@ Object.defineProperty(window, 'matchMedia', {
     dispatchEvent: jest.fn(),
   })),
 });
-
 // Mock dla localStorage
-Object.defineProperty(window, 'localStorage', {
+let store: Record<string, string> = {};
+
+Object.defineProperty(global, 'localStorage', {
   value: {
-    getItem: jest.fn(),
-    setItem: jest.fn(),
-    removeItem: jest.fn(),
-    clear: jest.fn(),
+    getItem: jest.fn((key: string) => store[key] || null),
+    setItem: jest.fn((key: string, value: string) => {
+      store[key] = value;
+    }),
+    removeItem: jest.fn((key: string) => {
+      delete store[key];
+    }),
+    clear: jest.fn(() => {
+      store = {};
+    }),
   },
-  writable: true
+  writable: true,
 });
+

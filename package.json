@@ -3,6 +3,8 @@
   "version": "1.0.0",
   "devDependencies": {
     "@babel/preset-env": "^7.28.0",
+    "@babel/preset-react": "^7.27.1",
+    "@babel/preset-typescript": "^7.27.1",
     "@eslint/js": "^9.31.0",
     "@jest/globals": "^29.7.0",
     "@testing-library/jest-dom": "^6.6.4",
@@ -23,11 +25,13 @@
     "identity-obj-proxy": "^3.0.0",
     "jest": "^29.7.0",
     "jest-environment-jsdom": "^29.7.0",
+    "jest-fetch-mock": "^3.0.3",
     "nodemon": "^3.1.10",
     "nx": "21.2.2",
     "postcss": "^8.5.6",
     "supertest": "^7.1.4",
     "tailwindcss": "^3.4.17",
+    "text-encoding": "^0.7.0",
     "ts-jest": "^29.4.1",
     "ts-node": "^10.9.2",
     "typescript-eslint": "^8.37.0"
@@ -38,7 +42,8 @@
     "test:client": "jest --config ./apps/client/jest.config.ts --coverage",
     "test:client:watch": "jest --config ./apps/client/jest.config.ts --watch",
     "test:server:watch": "node --experimental-vm-modules ./node_modules/jest/bin/jest.js --config ./apps/server/jest.config.js --watch",
-    "test:all": "npm run test:server && npm run test:client"
+    "test:all": "npm run test:server && npm run test:client",
+    "test": "jest"
   },
   "dependencies": {
     "axios": "^1.10.0",
