@@ -57,8 +57,8 @@
       "surname": "Dabrowski",
       "email": "1234@gmail.com",
       "password": "$2b$10$BBXmQMA3RzgawO75m3MkieS6Dbbj6ux34vQDB6nwEo8AuEXKzQMJW",
-      "correctAnswers": 4,
-      "wrongAnswers": 9
+      "correctAnswers": 5,
+      "wrongAnswers": 10
     }
   ],
   "flashcards": [
@@ -89,7 +89,7 @@
       "targetLang": "en",
       "id": "cb3ce201-f13e-4e92-8538-9446a0758e85",
       "userId": 10,
-      "box": 1
+      "box": 2
     },
     {
       "question": "Kot",
