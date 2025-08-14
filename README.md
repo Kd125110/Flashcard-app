@@ -16,10 +16,14 @@ This Flashcard App allows users to create, manage, and study flashcards organize
 
 ## Technologies Used
 
-- React.js
+- React
+- TypeScript
 - React Router
-- CSS for styling
-- Local Storage for data persistence
+- TailwindCSS
+- Baza danych lowdb
+- Node.js
+- Jest
+- JWT
 
 ## Installation
 
