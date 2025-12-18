@@ -5,6 +5,52 @@ on:
     branches:
       - master
   pull_request:
+    types: [opened, synchronize, reopened]
+    branches:
+      - master
+
+jobs:
+  start_all:
+    runs-on: ubuntu-latest
+    name: Start app (start:all)
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Start application
+        run: |
+          npm run start:all &
+          APP_PID=$!
+
+          echo "⏳ Waiting 30s for app to start..."
+          sleep 30
+
+          if ps -p $APP_PID > /dev/null; then
+            echo "✅ start:all is running (PID: $APP_PID)"
+          else
+            echo "❌ start:all failed"
+            exit 1
+          fi
+
+          kill $APP_PID || true
+          echo "✅ Done"
+        timeout-minutes: 3
+name: Azure Static Web Apps CI/CD
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
     types: [opened, synchronize, reopened, closed]
     branches:
       - master
@@ -56,4 +102,5 @@ jobs:
         uses: Azure/static-web-apps-deploy@v1
         with:
           action: "close"
+
 
