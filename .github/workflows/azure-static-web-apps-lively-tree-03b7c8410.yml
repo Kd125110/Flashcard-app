@@ -12,9 +12,11 @@ jobs:
     if: github.event_name != 'pull_request' || github.event.action != 'closed'
     runs-on: ubuntu-latest
     name: Start app (start:all)
+
     env:
-      NX_CLOUD: false
+      NX_CLOUD_ACCESS_TOKEN: ${{ secrets.NX_CLOUD_ACCESS_TOKEN }}
       NX_DAEMON: false
+
     steps:
       - uses: actions/checkout@v4
 
@@ -26,6 +28,9 @@ jobs:
 
       - name: Install dependencies
         run: npm ci
+
+      - name: Nx Cloud login (CI)
+        run: npx nx-cloud login --ci
 
       - name: Start application
         run: |
@@ -51,6 +56,7 @@ jobs:
     if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.action != 'closed')
     runs-on: ubuntu-latest
     name: Deploy to Azure Static Web Apps
+
     steps:
       - uses: actions/checkout@v4
 
@@ -62,8 +68,6 @@ jobs:
           action: "upload"
           app_location: "."
           api_location: ""
-          # UWAGA: "build" jest złe dla Nx w 99% przypadków.
-          # Tu MUSISZ wskazać faktyczny output z Nx (np. dist/apps/client)
           output_location: "dist/apps/client"
 
   close_pull_request_job:
@@ -71,8 +75,7 @@ jobs:
     runs-on: ubuntu-latest
     name: Close Pull Request Job
     steps:
-      - name: Close Pull Request
-        uses: Azure/static-web-apps-deploy@v1
+      - uses: Azure/static-web-apps-deploy@v1
         with:
           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_LIVELY_TREE_03B7C8410 }}
           action: "close"
