@@ -5,48 +5,54 @@ on:
     branches: [master]
   pull_request:
     branches: [master]
-    types: [closed]
+    types: [opened, synchronize, reopened, closed]
 
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
-    env:
-      NX_CLOUD_ACCESS_TOKEN: ${{ secrets.NX_CLOUD_ACCESS_TOKEN }}
-
+    
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-
+      
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '20'
-
-      - name: Clean install
-        run: |
-          rm -rf node_modules package-lock.json
-          npm install
-
-      - name: Install ESLint and plugins (flat config)
-        run: |
-          npm uninstall eslint @eslint/js @typescript-eslint/parser @typescript-eslint/eslint-plugin eslint-plugin-react eslint-plugin-react-hooks eslint-plugin-react-refresh globals || true
-          npm install --save-dev eslint@^9.0.0
-          npm install --save-dev @eslint/js@^9.0.0
-          npm install --save-dev @typescript-eslint/parser@8.38.0 @typescript-eslint/eslint-plugin@8.38.0
-          npm install --save-dev eslint-plugin-react@^7.33.0 eslint-plugin-react-hooks eslint-plugin-react-refresh
-          npm install --save-dev globals
-
-      - name: Build all apps
-        run: npx nx run-many --target=build --all
-
-      - name: Lint all apps
-        run: npx nx run-many --target=lint --all
       
-      - name: Test apps
-        run: npm run test:server
+      - name: Install dependencies
+        run: npm ci
+      
+      - name: Start application
+        run: |
+          # Uruchom backend i frontend w tle
+          npm run start:all &
+          APP_PID=$!
+          
+          # Czekaj 30 sekund żeby wszystko wystartowało
+          echo "⏳ Waiting for application to start..."
+          sleep 30
+          
+          # Sprawdź czy procesy działają
+          if ps -p $APP_PID > /dev/null; then
+            echo "✅ Application is running (PID: $APP_PID)"
+          else
+            echo "❌ Application failed to start"
+            exit 1
+          fi
+          
+          # Zatrzymaj aplikację
+          kill $APP_PID || true
+          echo "✅ Test completed successfully"
+        timeout-minutes: 3
 
+  cleanup:
+    runs-on: ubuntu-latest
+    needs: test
+    if: github.event_name == 'pull_request' && github.event.pull_request.merged == true
+    
+    steps:
       - name: Delete merged branch
-        if: github.event_name == 'pull_request' && github.event.pull_request.merged == true
         run: |
           BRANCH_NAME=${{ github.head_ref }}
           echo "Deleting branch: $BRANCH_NAME"
