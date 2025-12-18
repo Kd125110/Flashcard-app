@@ -1,32 +1,23 @@
-name: Start Flashcard (start:all)
-
-on:
-  push:
-    branches: [master]
-  workflow_dispatch:
-
 jobs:
   start_all:
     runs-on: ubuntu-latest
+    env:
+      NX_CLOUD: false
+      NX_DAEMON: false
     steps:
       - uses: actions/checkout@v4
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: "20"
           cache: "npm"
-
-      - name: Install dependencies
-        run: npm ci
-
+      - run: npm ci
       - name: Start application
         run: |
           npm run start:all &
           APP_PID=$!
 
-          echo "⏳ Waiting 30s for app to start..."
-          sleep 30
+          echo "⏳ Waiting 90s for app to start..."
+          sleep 90
 
           if ps -p $APP_PID > /dev/null; then
             echo "✅ start:all is running (PID: $APP_PID)"
@@ -37,4 +28,4 @@ jobs:
 
           kill $APP_PID || true
           echo "✅ Done"
-        timeout-minutes: 3
+        timeout-minutes: 5
